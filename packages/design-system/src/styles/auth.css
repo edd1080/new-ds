@@ -1,0 +1,231 @@
+/* Matilda — Auth-specific styles
+   Importar junto con base.css en (auth)/layout.tsx
+   Los tokens de color, tipografía y radio vienen de base.css
+   Este archivo solo define el layout y componentes exclusivos de auth */
+
+/* ── Variables adicionales ───────────────────────────── */
+:root {
+  --accent-fi: #00282e;                          /* texto sobre botón cyan */
+  --shadow-focus: 0 0 0 4px var(--accent-soft);  /* focus ring inputs auth */
+}
+
+/* ── Layout raíz ─────────────────────────────────────── */
+.auth-root {
+  display: flex;
+  height: 100vh;
+  min-height: 600px;
+  min-width: 960px;
+}
+
+/* ── Panel izquierdo (500px) ─────────────────────────── */
+.auth-panel {
+  width: 500px;
+  flex-shrink: 0;
+  background: var(--surface-1);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  position: relative;
+  overflow-y: auto;
+}
+
+.auth-brand {
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.auth-brand .mk {
+  width: 22px; height: 22px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5px;
+}
+.auth-brand .mk span { background: var(--ink-1); border-radius: 1px; }
+.auth-brand .mk span:nth-child(2),
+.auth-brand .mk span:nth-child(4),
+.auth-brand .mk span:nth-child(6),
+.auth-brand .mk span:nth-child(8) { background: transparent; }
+.auth-brand .mk span:nth-child(5) { background: var(--accent); }
+.auth-brand .wm {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 600; letter-spacing: -0.025em;
+}
+
+.auth-form-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px;
+}
+
+/* ── Wrappers de formulario ──────────────────────────── */
+.auth-form {
+  width: 100%; max-width: 360px;
+  display: flex; flex-direction: column; gap: 22px;
+  animation: authFormIn .32s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.auth-center {
+  width: 100%; max-width: 360px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 20px; text-align: center;
+  animation: authFormIn .32s cubic-bezier(.2,.7,.3,1) forwards;
+}
+
+/* ── Cabecera de form ─────────────────────────────────── */
+.auth-head { display: flex; flex-direction: column; gap: 6px; }
+.auth-head h1 {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 600; letter-spacing: -0.025em;
+}
+.auth-head p { font-size: 14.5px; color: var(--ink-3); line-height: 1.5; }
+.auth-center h1 {
+  font-family: var(--font-display);
+  font-size: 24px; font-weight: 600; letter-spacing: -0.02em;
+}
+.auth-center p { font-size: 14px; color: var(--ink-3); max-width: 300px; line-height: 1.55; }
+
+/* ── Ícono decorativo ────────────────────────────────── */
+.auth-icon {
+  width: 58px; height: 58px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  display: grid; place-items: center;
+  background: var(--surface-2); box-shadow: var(--shadow-sm);
+}
+.auth-icon svg {
+  width: 26px; height: 26px;
+  stroke: var(--ink-2); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.auth-icon.ok { border-color: var(--ok-line); background: var(--ok-soft); }
+.auth-icon.ok svg { stroke: var(--ok); }
+
+/* ── Campos de formulario ────────────────────────────── */
+.fields { display: flex; flex-direction: column; gap: 16px; }
+.field  { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13.5px; font-weight: 550; color: var(--ink-2); }
+.field input {
+  height: 42px; padding: 0 14px;
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  font-size: 14.5px; font-family: var(--font-sans);
+  color: var(--ink-1); background: var(--surface-1);
+  outline: none; transition: border-color .15s, box-shadow .15s; width: 100%;
+}
+.field input::placeholder { color: var(--ink-5); }
+.field input:focus { border-color: var(--accent-line); box-shadow: var(--shadow-focus); }
+.field-hint { font-size: 12.5px; color: var(--ink-4); margin-top: 2px; }
+
+/* Contraseña con toggle */
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 44px; }
+.pw-eye {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--ink-4);
+  display: grid; place-items: center; padding: 4px; transition: color .14s;
+}
+.pw-eye:hover { color: var(--ink-2); }
+.pw-eye svg {
+  width: 17px; height: 17px; stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Checkbox row */
+.check-row { display: flex; align-items: center; gap: 9px; }
+.check-row input[type=checkbox] {
+  width: 16px; height: 16px; border-radius: 4px;
+  cursor: pointer; accent-color: var(--accent); flex-shrink: 0;
+}
+.check-row label { font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
+
+/* Links inline */
+.auth-link {
+  font-size: 13.5px; color: var(--accent-ink); font-weight: 550;
+  cursor: pointer; background: none; border: none; font-family: inherit;
+}
+.auth-link:hover { text-decoration: underline; }
+.switch-p { text-align: center; font-size: 13.5px; color: var(--ink-3); }
+
+/* ── Botones auth (variantes distintas a .btn del shell) ─ */
+.btn-fill {
+  width: 100%; height: 44px;
+  background: var(--accent); border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  font-family: var(--font-sans); font-size: 15px; font-weight: 600;
+  color: var(--accent-fi); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background .15s, box-shadow .15s;
+}
+.btn-fill:hover {
+  background: var(--accent-2);
+  box-shadow: 0 4px 18px -4px rgba(0, 241, 255, 0.25);
+}
+.btn-outline {
+  width: 100%; height: 44px;
+  background: var(--surface-1); border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  font-family: var(--font-sans); font-size: 14.5px; font-weight: 550;
+  color: var(--ink-1); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.btn-outline:hover { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.btn-ghost-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px; color: var(--ink-3);
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-sans); transition: color .14s; padding: 0;
+}
+.btn-ghost-back:hover { color: var(--ink-1); }
+.btn-ghost-back svg {
+  width: 15px; height: 15px; stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ── Separador ───────────────────────────────────────── */
+.divider { display: flex; align-items: center; gap: 12px; }
+.divider::before,
+.divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.divider span { font-size: 12.5px; color: var(--ink-4); }
+
+/* ── OTP ─────────────────────────────────────────────── */
+.otp-row { display: flex; gap: 10px; justify-content: center; }
+.otp-box {
+  width: 52px; height: 58px;
+  border: 1.5px solid var(--line-2); border-radius: var(--r-sm);
+  font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  text-align: center; color: var(--ink-1); background: var(--surface-1);
+  outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.otp-box:focus { border-color: var(--accent-line); box-shadow: var(--shadow-focus); }
+
+/* ── Footer ──────────────────────────────────────────── */
+.auth-footer {
+  padding: 18px 40px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.auth-footer span,
+.auth-footer a {
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-4);
+  display: flex; align-items: center; gap: 5px; text-decoration: none;
+}
+.auth-footer a:hover { color: var(--ink-2); }
+
+/* ── Panel de arte (lado derecho) ────────────────────── */
+.auth-art {
+  flex: 1; position: relative; overflow: hidden;
+  background: linear-gradient(145deg, #001b22 0%, #003040 45%, #000e16 100%);
+}
+.auth-art svg { position: absolute; inset: 0; }
+
+/* ── Animaciones ─────────────────────────────────────── */
+@keyframes authFormIn  { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes ringFloat1  { 0%,100%{transform:scale(1);opacity:.13;} 50%{transform:scale(1.04);opacity:.22;} }
+@keyframes ringFloat2  { 0%,100%{transform:scale(1);opacity:.11;} 50%{transform:scale(.96);opacity:.19;} }
+@keyframes authDashFlow{ to { stroke-dashoffset: -80; } }
+@keyframes authDotPulse{ 0%,100%{opacity:.5;} 50%{opacity:.9;} }

@@ -1,0 +1,362 @@
+/* Matilda v2 — Unified design system (light + dark), generous scale.
+   Default theme: LIGHT (warm paper). Toggle to DARK ("Void"). One terracotta brand. */
+
+/* ============================================================ TOKENS */
+:root {
+  /* ---- LIGHT (default · warm paper) ---- */
+  --surface-0: #f7f5f1;   /* app background */
+  --surface-1: #ffffff;   /* panels / cards */
+  --surface-2: #fbfaf7;   /* raised / table head */
+  --surface-3: #f1efe9;   /* hover / inset */
+  --surface-4: #e9e6df;   /* pressed / wells */
+
+  --line:        #e7e3da;
+  --line-2:      #dcd7cc;
+  --line-strong: #cbc4b5;
+
+  --ink-1: #1c1a17;       /* primary text */
+  --ink-2: #4d4a43;       /* secondary */
+  --ink-3: #7a766c;       /* tertiary / labels */
+  --ink-4: #a7a298;       /* faint / meta */
+  --ink-5: #c9c4b8;       /* faintest / disabled */
+
+  --accent:      #c2603a; /* terracotta — Matilda brand */
+  --accent-2:    #d2734d;
+  --accent-soft: #fbeee7;
+  --accent-line: #ecc9b8;
+  --accent-ink:  #9c441f;
+
+  --ok:   #2f8f57;  --ok-soft:   #e7f4ec;  --ok-line:   #bfe2cc;
+  --warn: #b67c12;  --warn-soft: #fbf2dc;  --warn-line: #ecd6a2;
+  --err:  #cc4334;  --err-soft:  #fbe9e6;  --err-line:  #f0c5bd;
+  --info: #2f6f9e;  --info-soft: #e9f1f8;  --info-line: #c2d8e8;
+
+  --grid-bg:
+    linear-gradient(to right, #00000005 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    linear-gradient(to bottom, #00000005 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size);
+
+  --shadow-sm: 0 1px 2px rgba(28,26,23,0.05), 0 1px 1px rgba(28,26,23,0.03);
+  --shadow-md: 0 2px 10px -2px rgba(28,26,23,0.08), 0 10px 28px -14px rgba(28,26,23,0.14);
+  --shadow-lg: 0 6px 22px -6px rgba(28,26,23,0.10), 0 30px 60px -24px rgba(28,26,23,0.22);
+  --shadow-pop: 0 0 0 1px var(--line-2), var(--shadow-md);
+
+  /* ---- Type ---- */
+  --font-sans:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Space Grotesk", "DM Sans", sans-serif;  /* headings + large numerics */
+  --font-mono:    "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  /* ---- Radius ---- */
+  --r-xs: 5px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 100px;
+
+  /* ---- Scale / density (driven by Tweaks) ---- */
+  --base-font: 15.5px;
+  --space: 1;                 /* density multiplier */
+  --grid-size: 72px;
+  --pad-surface: calc(40px * var(--space));
+  --gap-card: calc(20px * var(--space));
+  --motion-mult: 1;
+}
+
+/* ---- DARK ("Void" — warm near-black, terracotta) ---- */
+[data-theme="dark"] {
+  --surface-0: #0c0b0a;
+  --surface-1: #141312;
+  --surface-2: #1a1917;
+  --surface-3: #211f1d;
+  --surface-4: #2a2826;
+
+  --line:        #232120;
+  --line-2:      #2f2d2b;
+  --line-strong: #423f3c;
+
+  --ink-1: #f6f3ec;
+  --ink-2: #c0bbb0;
+  --ink-3: #8b857a;
+  --ink-4: #5d584f;
+  --ink-5: #3a3733;
+
+  --accent:      #df8160;
+  --accent-2:    #ed9576;
+  --accent-soft: #2a1a12;
+  --accent-line: #5a3526;
+  --accent-ink:  #f0a585;
+
+  --ok:   #6fc795;  --ok-soft:   #16241c;  --ok-line:   #2d4a39;
+  --warn: #e0bd6a;  --warn-soft: #271f10;  --warn-line: #4a3d1f;
+  --err:  #e88072;  --err-soft:  #271612;  --err-line:  #4a2823;
+  --info: #74b3df;  --info-soft: #111f29;  --info-line: #234152;
+
+  --grid-bg:
+    linear-gradient(to right, #ffffff05 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    linear-gradient(to bottom, #ffffff05 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 28px -10px rgba(0,0,0,0.6);
+  --shadow-lg: 0 24px 60px -20px rgba(0,0,0,0.7);
+  --shadow-pop: 0 0 0 1px var(--line-2), var(--shadow-md);
+}
+
+/* ============================================================ RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; width: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--surface-0);
+  color: var(--ink-1);
+  font-size: var(--base-font);
+  line-height: 1.55;
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Space Grotesk → all headings + large numeric display values ---- */
+h1, h2, h3, h4,
+.surface-header h1,
+.ov-greet h2,
+.ov-module h3,
+.surf-empty h2,
+.ov-metric .v,
+.ingest-est .v,
+.cs-kpi .v,
+.cs-ops-meta .v,
+.cs-flow-card .stats .vv,
+.cs-fd-hero .v,
+.de-kpi .cell .v,
+.flow-kpis .cell .v {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+/* Headings don't need tabular nums — reset just for them */
+h1, h2, h3, h4,
+.surface-header h1,
+.ov-greet h2,
+.ov-module h3,
+.surf-empty h2 {
+  font-variant-numeric: normal;
+}
+#root { overflow: hidden; }
+button { font-family: inherit; font-size: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; cursor: pointer; }
+
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 8px; border: 3px solid var(--surface-0); }
+::-webkit-scrollbar-thumb:hover { background: var(--line-strong); }
+
+/* ============================================================ UTIL */
+.mono { font-family: var(--font-mono); font-feature-settings: "ss01","ss02","calt"; }
+.tabular { font-variant-numeric: tabular-nums; }
+.upper { text-transform: uppercase; letter-spacing: 0.09em; }
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ============================================================ ANIMATIONS */
+@keyframes m-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes m-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes m-scale-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes m-pulse { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
+@keyframes m-flow { to { stroke-dashoffset: -16; } }
+@keyframes m-draw { to { stroke-dashoffset: 0; } }
+@keyframes m-blink { 50% { opacity: 0.2; } }
+@keyframes m-spin { to { transform: rotate(360deg); } }
+@keyframes m-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes m-sheen { to { background-position: 200% 0; } }
+@keyframes m-ring { 0% { transform: scale(0.85); opacity: 0.7; } 100% { transform: scale(1.5); opacity: 0; } }
+.blink { animation: m-blink 1.2s steps(2) infinite; }
+.spin { display: inline-flex; animation: m-spin 0.9s linear infinite; }
+
+/* fade-up helper for revealing rows */
+.rise { animation: m-fade-up calc(0.4s * var(--motion-mult)) cubic-bezier(.2,.7,.3,1) both; }
+
+/* ============================================================ MARK */
+.mk {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5px;
+}
+.mk span { background: var(--ink-1); border-radius: 1px; }
+.mk span:nth-child(2), .mk span:nth-child(4),
+.mk span:nth-child(6), .mk span:nth-child(8) { background: transparent; }
+.mk span:nth-child(5) { background: var(--accent); }
+.matilda-mark {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5px;
+}
+.matilda-mark span { background: var(--ink-1); border-radius: 1px; }
+.matilda-mark span:nth-child(2), .matilda-mark span:nth-child(4),
+.matilda-mark span:nth-child(6), .matilda-mark span:nth-child(8) { background: transparent; }
+.matilda-mark span:nth-child(5) { background: var(--accent); }
+
+/* ============================================================ BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  border: 1px solid var(--line-2);
+  color: var(--ink-1);
+  background: var(--surface-1);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, box-shadow .15s, color .15s, transform .08s;
+  white-space: nowrap;
+}
+.btn:hover { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 15px; height: 15px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="dark"] .btn.primary { color: #1a0f0a; }
+.btn.primary:hover { background: var(--accent-2); border-color: var(--accent-2); box-shadow: var(--shadow-md); }
+.btn.ghost { border-color: transparent; background: transparent; color: var(--ink-2); }
+.btn.ghost:hover { background: var(--surface-3); color: var(--ink-1); box-shadow: none; }
+.btn.sm { height: 32px; padding: 0 13px; font-size: 13px; border-radius: var(--r-xs); }
+.btn.sm svg { width: 13px; height: 13px; }
+.btn.lg { height: 50px; padding: 0 28px; font-size: 16px; border-radius: var(--r-md); }
+.btn.lg svg { width: 17px; height: 17px; }
+.btn.block { width: 100%; }
+.btn:disabled { opacity: 0.42; cursor: not-allowed; }
+.btn:disabled:hover { box-shadow: none; border-color: var(--line-2); }
+
+.iconbtn {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-2);
+  background: var(--surface-1);
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all .15s;
+}
+.iconbtn:hover { border-color: var(--line-strong); color: var(--ink-1); box-shadow: var(--shadow-sm); }
+.iconbtn svg { width: 16px; height: 16px; }
+
+/* ============================================================ CHIPS / TAGS / DOTS */
+.tag, .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-2);
+  color: var(--ink-3);
+  background: var(--surface-1);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.tag.ok,   .chip.ok   { color: var(--ok);   border-color: var(--ok-line);   background: var(--ok-soft); }
+.tag.warn, .chip.warn { color: var(--warn); border-color: var(--warn-line); background: var(--warn-soft); }
+.tag.err,  .chip.err  { color: var(--err);  border-color: var(--err-line);  background: var(--err-soft); }
+.tag.info, .chip.info { color: var(--info); border-color: var(--info-line); background: var(--info-soft); }
+.tag.accent, .chip.accent, .tag.brand, .chip.brand { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-soft); }
+[data-theme="dark"] .tag.accent, [data-theme="dark"] .chip.accent,
+[data-theme="dark"] .tag.brand, [data-theme="dark"] .chip.brand { color: var(--accent-2); }
+
+.dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ink-4);
+  flex-shrink: 0;
+}
+.dot.ok   { background: var(--ok);   box-shadow: 0 0 7px color-mix(in srgb, var(--ok) 55%, transparent); }
+.dot.warn { background: var(--warn); box-shadow: 0 0 7px color-mix(in srgb, var(--warn) 55%, transparent); }
+.dot.err  { background: var(--err);  box-shadow: 0 0 7px color-mix(in srgb, var(--err) 55%, transparent); }
+.dot.info { background: var(--info); }
+.dot.run, .dot.accent, .dot.brand { background: var(--accent); box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent); }
+.dot.run { animation: m-pulse 1.4s ease-in-out infinite; }
+
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 6px;
+  background: var(--surface-3);
+  border: 1px solid var(--line-2);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  color: var(--ink-2);
+}
+
+/* ============================================================ CARD */
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.card.soft { background: var(--surface-2); }
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+
+/* progress bar atom */
+.pbar { height: 6px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.pbar > div { height: 100%; background: var(--accent); border-radius: inherit; transition: width .5s cubic-bezier(.2,.7,.3,1); }
+.pbar.ok > div { background: var(--ok); }
+.pbar.warn > div { background: var(--warn); }
+
+/* ============================================================ ACCENT · CYAN (#00F1FF)
+   Electric cyan as primary with tints/shades. Cools the light background away from
+   cream while keeping the subtle contrast against the (white) sidebar. */
+[data-accent="cyan"] {
+  --accent: #0bb6cc;        /* shade — readable for icons / active / borders on light */
+  --accent-2: #00d3ea;
+  --accent-soft: #e2fbff;
+  --accent-line: #a4ecf5;
+  --accent-ink: #097e92;
+  --accent-glow: rgba(0, 241, 255, 0.25);
+}
+/* light surfaces → cooler & lighter than cream, sidebar stays whiter */
+[data-theme="light"][data-accent="cyan"] {
+  --surface-0: #f2fafb;
+  --surface-1: #ffffff;
+  --surface-2: #f7fcfd;
+  --surface-3: #e7f3f5;
+  --surface-4: #d8eaed;
+  --line:        #e3eef0;
+  --line-2:      #d4e2e4;
+  --line-strong: #bdd1d4;
+  --grid-bg:
+    linear-gradient(to right, #00b8cc08 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    linear-gradient(to bottom, #00b8cc08 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size);
+}
+/* dark + cyan → the pure base pops on near-black */
+[data-theme="dark"][data-accent="cyan"] {
+  --accent: #00f1ff;
+  --accent-2: #5cf6ff;
+  --accent-soft: #06343b;
+  --accent-line: #0e5965;
+  --accent-ink: #5cf6ff;
+}
+/* cyan is light → solid accent fills need dark text in BOTH themes */
+[data-accent="cyan"] .btn.primary,
+[data-accent="cyan"] .topbar-org .org-mark { color: #00282e; }

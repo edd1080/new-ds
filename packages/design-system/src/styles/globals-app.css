@@ -1,0 +1,15 @@
+/*
+ * Entry stylesheet for the (app) route group — Shell + all product surfaces.
+ * Import order matters: tokens/base first, then layout, then surface-specific,
+ * then component overrides. Mirrors cursor_handoff/README.md's globals.css order,
+ * extended with the surf-domains / surf-simulations modules added in Matilda 4.5.
+ */
+@import "./base.css";
+@import "./shell.css";
+@import "./surfaces.css";
+@import "./surfaces2.css";
+@import "./surfaces3.css";
+@import "./surfaces4.css";
+@import "./surf-domains.css";
+@import "./surf-simulations.css";
+@import "./components.css";

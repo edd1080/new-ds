@@ -1,0 +1,20 @@
+{
+  "name": "bowpi-enterprise",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=18.18"
+  },
+  "scripts": {
+    "dev:matilda": "pnpm --filter @bowpi/matilda dev",
+    "dev:style-guide": "pnpm --filter @bowpi/style-guide dev",
+    "build": "pnpm -r build",
+    "build:matilda": "pnpm --filter @bowpi/matilda build",
+    "build:style-guide": "pnpm --filter @bowpi/style-guide build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

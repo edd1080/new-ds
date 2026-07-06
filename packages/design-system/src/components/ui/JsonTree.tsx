@@ -1,0 +1,69 @@
+"use client";
+
+import { useState } from "react";
+import type { JsonTreeNode } from "../../types/matilda";
+
+export interface JsonTreeProps {
+  node: JsonTreeNode;
+}
+
+/** .json-tree — root entry point. Renders top-level children of a synthetic "root" node. */
+export function JsonTree({ node }: JsonTreeProps) {
+  if (node.key === "root" && node.children) {
+    return (
+      <div className="json-tree">
+        {node.children.map((c) => (
+          <JsonNode key={c.key} node={c} depth={0} path="" />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="json-tree">
+      <JsonNode node={node} depth={0} path="" />
+    </div>
+  );
+}
+
+export interface JsonNodeProps {
+  node: JsonTreeNode;
+  depth?: number;
+  path?: string;
+}
+
+/** .json-node / .json-leaf — a single collapsible node in the JSON tree (mapper + upload). */
+export function JsonNode({ node, depth = 0, path = "" }: JsonNodeProps) {
+  const [open, setOpen] = useState(depth < 2);
+  const fullPath = path ? `${path}.${node.key}` : node.key;
+
+  if (node.type !== "object") {
+    return (
+      <div className="json-leaf">
+        <span className={`json-map-dot ${node.mapStatus ?? "none"}`} />
+        <span className="json-key">{node.key}</span>
+        <span className="json-type-badge">{node.type}</span>
+        <span className="json-val">{node.value}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="json-node">
+      <div className="json-node-head" onClick={() => setOpen((o) => !o)}>
+        <span className="json-caret">{open ? "▾" : "▸"}</span>
+        <span className="json-key">{node.key}</span>
+        <span className="json-type-badge" style={{ color: "var(--accent)", borderColor: "var(--accent-line)", background: "var(--accent-soft)" }}>
+          obj
+        </span>
+        {!open && <span className="json-val">{node.children?.length ?? 0} campos</span>}
+      </div>
+      {open && (
+        <div className="json-node-children">
+          {node.children?.map((c) => (
+            <JsonNode key={c.key} node={c} depth={depth + 1} path={fullPath} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

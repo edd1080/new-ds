@@ -1,0 +1,452 @@
+/* Bowpi Enterprise — Nuevos componentes del Design System v4
+   Handoff Part 3: Componentes base que faltaban
+   Copiar a: src/styles/components.css (importar en globals.css)
+*/
+
+/* ============================================================ SELECT */
+.select-field { position: relative; }
+
+.select-native {
+  height: 42px;
+  padding: 0 36px 0 14px;
+  border: 1.5px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  font-size: 14px;
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color .15s, box-shadow .15s;
+}
+.select-native:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.select-native:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.select-native.has-err {
+  border-color: var(--err-line);
+}
+.select-native.has-err:focus {
+  box-shadow: 0 0 0 3px var(--err-soft);
+}
+.select-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ink-4);
+  display: grid;
+  place-items: center;
+}
+
+/* Select tamaño small */
+.select-native.sm {
+  height: 32px;
+  font-size: 13px;
+  padding: 0 30px 0 10px;
+}
+
+/* ============================================================ TOGGLE */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.toggle-row.disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.toggle-track {
+  width: 42px;
+  height: 24px;
+  border-radius: 100px;
+  background: var(--line-2);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background .2s;
+  flex-shrink: 0;
+  padding: 0;
+}
+.toggle-track.on { background: var(--accent); }
+.toggle-track:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform .2s cubic-bezier(.2,.8,.3,1);
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  pointer-events: none;
+}
+.toggle-track.on .toggle-thumb { transform: translateX(18px); }
+
+[data-theme="dark"] .toggle-thumb { background: var(--surface-1); }
+
+.toggle-label {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.4;
+}
+.toggle-hint {
+  font-size: 12px;
+  color: var(--ink-4);
+  margin-top: 1px;
+}
+
+/* ============================================================ CHECKBOX */
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.checkbox-row.disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.checkbox-box {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--r-xs);
+  border: 1.5px solid var(--line-2);
+  background: var(--surface-1);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background .15s, border-color .15s;
+  cursor: pointer;
+}
+.checkbox-box.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.checkbox-box.checked svg {
+  /* stroke color set inline as currentColor; this forces white */
+  color: #00282e;  /* dark text on cyan — matches btn-fill rule */
+}
+[data-theme="dark"] .checkbox-box.checked svg { color: #001a1f; }
+
+.checkbox-label {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.checkbox-hint {
+  font-size: 12px;
+  color: var(--ink-4);
+  margin-top: 1px;
+}
+
+/* ============================================================ RADIO */
+.radio-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.radio-row.disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  background: var(--surface-1);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: border-color .15s, border-width .15s;
+}
+.radio-circle.checked {
+  border-color: var(--accent);
+  border-width: 2px;
+}
+.radio-circle.checked::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ============================================================ TEXTAREA */
+.form-textarea {
+  padding: 10px 14px;
+  min-height: 96px;
+  border: 1.5px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  font-size: 14px;
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+  outline: none;
+  resize: vertical;
+  width: 100%;
+  transition: border-color .15s, box-shadow .15s;
+  line-height: 1.55;
+}
+.form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.form-textarea::placeholder { color: var(--ink-5); }
+.form-textarea.has-err { border-color: var(--err-line); }
+.form-textarea.has-err:focus { box-shadow: 0 0 0 3px var(--err-soft); }
+.form-textarea:disabled { opacity: 0.5; cursor: not-allowed; resize: none; }
+.form-textarea.mono { font-family: var(--font-mono); font-size: 13px; }
+
+/* ============================================================ SEARCH BAR */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1.5px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  transition: border-color .15s, box-shadow .15s;
+}
+.search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+  min-width: 0;
+}
+.search-bar input::placeholder { color: var(--ink-4); }
+.search-bar > svg { color: var(--ink-4); flex-shrink: 0; }
+
+/* Search bar grande (topbar) */
+.search-bar.lg {
+  height: 44px;
+  border-radius: var(--r-md);
+  padding: 0 16px;
+  gap: 10px;
+}
+.search-bar.lg input { font-size: 14.5px; }
+
+/* ============================================================ ALERT */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  border: 1px solid;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.alert.ok   { background: var(--ok-soft);   border-color: var(--ok-line); }
+.alert.warn { background: var(--warn-soft); border-color: var(--warn-line); }
+.alert.err  { background: var(--err-soft);  border-color: var(--err-line); }
+.alert.info { background: var(--info-soft); border-color: var(--info-line); }
+
+.alert-icon { flex-shrink: 0; margin-top: 2px; }
+.alert.ok   .alert-icon { color: var(--ok); }
+.alert.warn .alert-icon { color: var(--warn); }
+.alert.err  .alert-icon { color: var(--err); }
+.alert.info .alert-icon { color: var(--info); }
+
+.alert-body { flex: 1; }
+.alert-title {
+  font-weight: 600;
+  color: var(--ink-1);
+  margin-bottom: 3px;
+  font-size: 13.5px;
+}
+.alert-desc {
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Alert dismissible */
+.alert-close {
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border-radius: var(--r-xs);
+  border: none; background: none;
+  cursor: pointer; color: var(--ink-4);
+  flex-shrink: 0; margin-left: auto;
+  transition: background .12s, color .12s;
+}
+.alert-close:hover { background: rgba(0,0,0,.06); color: var(--ink-2); }
+
+/* ============================================================ BREADCRUMB */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+}
+.breadcrumb-item {
+  color: var(--ink-4);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .12s;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+}
+.breadcrumb-item:hover { color: var(--ink-2); }
+.breadcrumb-item.current {
+  color: var(--ink-2);
+  cursor: default;
+  font-weight: 550;
+}
+.breadcrumb-sep { color: var(--ink-5); }
+
+/* ============================================================ TABS UNDERLINE */
+.tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+.tab-ul {
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--ink-3);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: color .12s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.tab-ul:hover { color: var(--ink-1); }
+.tab-ul.active {
+  color: var(--ink-1);
+  border-bottom-color: var(--accent);
+  font-weight: 550;
+}
+.tab-ul .count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-4);
+  background: var(--surface-3);
+  padding: 1px 6px;
+  border-radius: var(--r-pill);
+}
+.tab-ul.active .count {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+/* ============================================================ DATA TABLE */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.data-table thead th {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.data-table tbody td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-1);
+  vertical-align: middle;
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover td { background: var(--surface-3); }
+.data-table .td-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.data-table .td-action { text-align: right; }
+
+/* ============================================================ STAT CARD */
+.stat-card {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 12px 18px;
+  min-width: 110px;
+}
+.stat-card .sk {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--ink-4);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.stat-card .sv {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--ink-1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+.stat-card .sd {
+  font-size: 11.5px;
+  color: var(--ink-4);
+  margin-top: 3px;
+  font-family: var(--font-mono);
+}
+/* Variantes semánticas */
+.stat-card.ok   .sv { color: var(--ok); }
+.stat-card.warn .sv { color: var(--warn); }
+.stat-card.err  .sv { color: var(--err); }

@@ -1,0 +1,6 @@
+/*
+ * Entry stylesheet for the (auth) route group — no Shell, own layout.
+ * Auth screens use tokens from base.css plus their own exclusive components.
+ */
+@import "./base.css";
+@import "./auth.css";
