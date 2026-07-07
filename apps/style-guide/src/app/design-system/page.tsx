@@ -131,8 +131,8 @@ export default function DesignSystemPage() {
           <Sub title="Acento — Cyan">
             <div className="sg-swatch-grid">
               {[
-                ["accent", "#0bb6cc"],
-                ["accent-2", "#00d3ea"],
+                ["accent", "#04D3EA"],
+                ["accent-2", "#0BB7CC"],
                 ["accent-soft", "#e2fbff"],
                 ["accent-line", "#a4ecf5"],
                 ["accent-ink", "#097e92"],
@@ -144,15 +144,15 @@ export default function DesignSystemPage() {
           <Sub title="Semánticos">
             <div className="sg-swatch-grid" style={{ gridTemplateColumns: "repeat(6,1fr)" }}>
               {[
-                ["ok", "#2f8f57"],
-                ["ok-soft", "#e7f4ec"],
-                ["ok-line", "#bfe2cc"],
-                ["warn", "#b67c12"],
-                ["warn-soft", "#fbf2dc"],
-                ["warn-line", "#ecd6a2"],
-                ["err", "#cc4334"],
-                ["err-soft", "#fbe9e6"],
-                ["err-line", "#f0c5bd"],
+                ["ok", "#27D778"],
+                ["ok-soft", "#D1FFE6"],
+                ["ok-line", "#7AD1A2"],
+                ["warn", "#D99733"],
+                ["warn-soft", "#FFE8C7"],
+                ["warn-line", "#F8C579"],
+                ["err", "#D0514A"],
+                ["err-soft", "#FFE7E7"],
+                ["err-line", "#FFC0C0"],
                 ["info", "#2f6f9e"],
                 ["info-soft", "#e9f1f8"],
                 ["info-line", "#c2d8e8"],
@@ -168,7 +168,7 @@ export default function DesignSystemPage() {
             <Preview col>
               {[
                 { fam: "var(--font-display)", name: "Space Grotesk", use: "H1–H3, métricas grandes, nombres de proyectos", sample: "Crédito Individual — Banco Solidario" },
-                { fam: "var(--font-sans)", name: "DM Sans", use: "Cuerpo, labels, botones, descripciones", sample: "Configurá las políticas de mapeo para este campo" },
+                { fam: "var(--font-sans)", name: "DM Sans", use: "Cuerpo, labels, botones, descripciones", sample: "Configura las políticas de mapeo para este campo" },
                 { fam: "var(--font-mono)", name: "JetBrains Mono", use: "IDs, paths canónicos, código, statusbar", sample: "profile.personalInfo.nationalId → 0912345678" },
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "baseline", gap: 20, padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
@@ -372,7 +372,7 @@ export default function DesignSystemPage() {
           <Sub title="Select">
             <Preview col style={{ maxWidth: 360 }}>
               <Select defaultValue="">
-                <option value="">Seleccioná una opción</option>
+                <option value="">Selecciona una opción</option>
                 <option>REQUIRED</option>
                 <option>SET_NULL</option>
                 <option>USE_DEFAULT</option>
@@ -575,9 +575,9 @@ export default function DesignSystemPage() {
           <Sub title="Alert — 4 tonos">
             <Preview col style={{ gap: 10, maxWidth: 560 }}>
               <Alert tone="ok" title="Configuración publicada" desc="La versión credito-individual-ptc v1.4.0 está activa en producción." />
-              <Alert tone="warn" title="Cobertura parcial" desc="3 capacidades tienen cobertura incompleta. Revisá los campos faltantes en el resumen." />
+              <Alert tone="warn" title="Cobertura parcial" desc="3 capacidades tienen cobertura incompleta. Revisa los campos faltantes en el resumen." />
               <Alert tone="err" title="Blocker: campo crítico sin fuente" desc="creditHistory.bureauScore no tiene campo de origen asignado." />
-              <Alert tone="info" title="Canónico v9.0.0" desc="El schema canónico fue actualizado el 15 jun. Revisá si hay campos nuevos disponibles." />
+              <Alert tone="info" title="Canónico v9.0.0" desc="El schema canónico fue actualizado el 15 jun. Revisa si hay campos nuevos disponibles." />
             </Preview>
           </Sub>
           <Sub title="Save indicator">
@@ -597,7 +597,7 @@ export default function DesignSystemPage() {
             <Preview style={{ padding: 0 }}>
               <div style={{ width: "100%" }}>
                 <LockedSurface
-                  heading="Primero completá la ingesta"
+                  heading="Primero completa la ingesta"
                   body="El editor se activa después de cargar el JSON del cliente y ejecutar el análisis del agente."
                   cta="Ir a configuración"
                   onCta={() => {}}

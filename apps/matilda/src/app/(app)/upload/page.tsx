@@ -43,7 +43,7 @@ function ConfigStep({ onNext }: { onNext: () => void }) {
         <div>
           <div className="crumbs">DATA TRANSLATION / NUEVA DEFINICIÓN</div>
           <h1>Configuración</h1>
-          <div className="sub">Asigná un nombre y un identificador único a esta definición de mapeo.</div>
+          <div className="sub">Asigna un nombre y un identificador único a esta definición de mapeo.</div>
         </div>
       </div>
 
@@ -62,7 +62,7 @@ function ConfigStep({ onNext }: { onNext: () => void }) {
             />
           </FormField>
 
-          <FormField label="Mapper ID" hint="auto-generado" desc="Identificador único en kebab-case (máx. 40 caracteres). Se genera desde el nombre, podés editarlo.">
+          <FormField label="Mapper ID" hint="auto-generado" desc="Identificador único en kebab-case (máx. 40 caracteres). Se genera desde el nombre, puedes editarlo.">
             {!editingId ? (
               <MapperIdPreview
                 mapperId={effectiveId || ""}
@@ -144,15 +144,6 @@ function IngestaStep({ onBack }: { onBack: () => void }) {
     }, 1400);
   };
 
-  const runParseError = () => {
-    setPhase("loading");
-    timerRef.current = setTimeout(() => {
-      loadJson();
-      setPhase("parseError");
-      setParseErrorMsg("parseSuccess: false — El agente no pudo interpretar la estructura del JSON. Verificá que el archivo sea válido y bien formado.");
-    }, 1200);
-  };
-
   const done = phase === "done";
   const agentStepsDone = agentCount;
 
@@ -162,7 +153,7 @@ function IngestaStep({ onBack }: { onBack: () => void }) {
         <div>
           <div className="crumbs">DATA TRANSLATION / {projectName || "NUEVA DEFINICIÓN"}</div>
           <h1>Ingesta de datos</h1>
-          <div className="sub">Cargá el JSON del cliente. El agente IA analizará su estructura y generará las reglas de mapeo.</div>
+          <div className="sub">Carga el JSON del cliente. El agente IA analizará su estructura y generará las reglas de mapeo.</div>
         </div>
         <div className="actions">
           {done ? (
@@ -193,7 +184,7 @@ function IngestaStep({ onBack }: { onBack: () => void }) {
                 <div className="ic-wrap">
                   <Icon.json />
                 </div>
-                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Arrastrá tu JSON acá</h3>
+                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Arrastra tu JSON aquí</h3>
                 <p style={{ margin: 0, color: "var(--ink-4)", fontSize: 13.5 }}>Soporte para JSON de proceso BPM, sistema propio o exportación de base de datos</p>
               </div>
               <div style={{ marginTop: 20 }}>
@@ -217,9 +208,6 @@ function IngestaStep({ onBack }: { onBack: () => void }) {
                 <div style={{ marginTop: 18, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
                   <Button variant="primary" size="lg" onClick={runUpload}>
                     <Icon.upload /> Simular carga de {src.name}
-                  </Button>
-                  <Button style={{ borderColor: "var(--err-line)", color: "var(--err)" }} onClick={runParseError}>
-                    Simular error de agente
                   </Button>
                 </div>
               </div>

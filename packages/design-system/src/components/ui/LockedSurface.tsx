@@ -41,7 +41,7 @@ export function LockedSurface({ icon, heading, body, cta, onCta, secondary, onSe
             <div key={i} className={`step ${st.state}`}>
               <span className="bx">{st.state === "done" ? "✓" : i + 1}</span>
               <span className="lb">{st.label}</span>
-              {st.state === "now" && <span className="go">empezá acá</span>}
+              {st.state === "now" && <span className="go">empieza aquí</span>}
             </div>
           ))}
         </div>

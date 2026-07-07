@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Icon, SurfaceHeader } from "@bowpi/design-system";
+import { Icon, SurfaceHeader, Button } from "@bowpi/design-system";
 import { useMatildaStore } from "../../../store/useMatildaStore";
 import { dtProgress } from "../../../lib/helpers";
 import { DT_PROJECTS } from "../../../data/mockData";
@@ -84,31 +84,31 @@ export default function OverviewPage() {
       <div className="ov">
         <div className="ov-hero">
           <div className="ov-greet">
-            <div className="eyebrow">{prog === 0 ? "Empezá acá" : prog === 2 ? "En progreso" : "Continuar"}</div>
+            <div className="eyebrow">{prog === 0 ? "Empieza aquí" : prog === 2 ? "En progreso" : "Continuar"}</div>
             <h2>
               {prog === 0
-                ? "Conectá tus datos al motor de decisión"
+                ? "Conecta tus datos al motor de decisión"
                 : prog === 2
                 ? `Editando: ${activeProject?.name || "proyecto activo"}`
-                : "Completá la ingesta de datos"}
+                : "Completa la ingesta de datos"}
             </h2>
             <p>
               {prog === 0
                 ? "Data Translation toma el JSON de tu sistema, lo traduce al Canónico v9.0.0 con IA y lo conecta al motor crediticio. Dos pasos, sin código."
                 : prog === 1
-                ? `Proyecto "${projectName}" configurado. Cargá el JSON del cliente para que el agente IA genere las reglas de mapeo.`
+                ? `Proyecto "${projectName}" configurado. Carga el JSON del cliente para que el agente IA genere las reglas de mapeo.`
                 : `${mappingRules.length || 29} reglas cargadas · ${matchedCount || 15} con match · ${noMatchCount || 14} sin asignar`}
             </p>
             <div className="cta-row">
-              <button className="btn primary" onClick={() => go(ctaSurface)}>
+              <Button variant="primary" onClick={() => go(ctaSurface)}>
                 {ctaLabel} <Icon.arrow />
-              </button>
-              <button className="btn" onClick={() => go("explainer")}>
+              </Button>
+              <Button onClick={() => go("explainer")}>
                 <Icon.book /> Cómo funciona
-              </button>
-              <button className="btn" onClick={() => go("projects")}>
+              </Button>
+              <Button onClick={() => go("projects")}>
                 <Icon.cards /> Ver proyectos
-              </button>
+              </Button>
             </div>
           </div>
 

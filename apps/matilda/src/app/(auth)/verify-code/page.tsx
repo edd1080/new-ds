@@ -29,9 +29,9 @@ export default function VerifyCodePage() {
           <AuthIcon>
             <Icon.mail />
           </AuthIcon>
-          <h1>Ingresá el código</h1>
+          <h1>Ingresa el código</h1>
           <p>
-            Ingresá el código de 6 dígitos que enviamos a <strong style={{ color: "var(--ink-2)" }}>olivia@empresa.com</strong>
+            Ingresa el código de 6 dígitos que enviamos a <strong style={{ color: "var(--ink-2)" }}>olivia@empresa.com</strong>
           </p>
           <OTPInput value={code} onChange={setCode} />
           <BtnFill style={{ width: "100%", marginTop: 4 }} disabled={submitting}>

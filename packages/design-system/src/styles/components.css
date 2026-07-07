@@ -450,3 +450,102 @@
 .stat-card.ok   .sv { color: var(--ok); }
 .stat-card.warn .sv { color: var(--warn); }
 .stat-card.err  .sv { color: var(--err); }
+/* Compact — inline summary stat, less padding */
+.stat-card.compact { padding: 10px 14px; min-width: 90px; }
+.stat-card.compact .sv { font-size: 18px; }
+
+/* ============================================================ MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  z-index: 900;
+  animation: m-fade 0.15s ease both;
+}
+.modal {
+  width: 540px;
+  max-height: 85vh;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: m-scale-in 0.2s cubic-bezier(.2,.7,.3,1) both;
+}
+.modal-head {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.modal-head h2 { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--ink-1); margin-bottom: 2px; }
+.modal-head p  { font-size: 12.5px; color: var(--ink-3); }
+.modal-close {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: var(--r-xs);
+  color: var(--ink-4);
+  cursor: pointer;
+  transition: background .12s, color .12s;
+  flex-shrink: 0;
+}
+.modal-close:hover { background: var(--surface-3); color: var(--ink-1); }
+.modal-body { flex: 1; overflow-y: auto; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.modal-foot { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-shrink: 0; }
+.modal-foot .meta { flex: 1; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4); }
+
+/* ============================================================ EMPTY STATE */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 12px;
+  color: var(--ink-3);
+}
+.empty-state-icon {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: var(--r-md);
+  background: var(--surface-3);
+  color: var(--ink-4);
+  margin-bottom: 4px;
+}
+.empty-state-icon svg { width: 24px; height: 24px; }
+.empty-state h3 { font-size: 15px; font-weight: 600; color: var(--ink-2); margin: 0; }
+.empty-state p { font-size: 13px; color: var(--ink-4); margin: 0; max-width: 320px; line-height: 1.5; }
+
+/* ============================================================ DROP ZONE */
+.drop-zone {
+  border: 2px dashed var(--line-2);
+  border-radius: var(--r-md);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .14s, background .14s;
+}
+.drop-zone:hover { border-color: var(--accent); background: var(--accent-soft); }
+.drop-zone-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--r-md);
+  background: var(--surface-3);
+  display: grid; place-items: center;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+.drop-zone-icon svg { width: 24px; height: 24px; }
+.drop-zone h3 { font-size: 15px; font-weight: 600; color: var(--ink-2); margin: 0; }
+.drop-zone p { font-size: 12.5px; color: var(--ink-4); margin: 0; }
+.drop-zone.over { border-color: var(--accent); background: var(--accent-soft); }

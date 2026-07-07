@@ -306,7 +306,7 @@
   flex-shrink: 0;
 }
 .dom-icon-btn:hover { background: var(--surface-3); border-color: var(--line-strong); color: var(--ink-1); }
-.dom-icon-btn.danger:hover { background: var(--err-soft); border-color: var(--err-line); color: var(--err); }
+.dom-icon-btn.danger:hover { background: var(--surface-3); border-color: var(--line-strong); color: var(--ink-2); }
 .dom-icon-btn .dom-tooltip {
   position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
   background: var(--ink-1); color: var(--surface-1); font-size: 11px; font-family: var(--font-sans);

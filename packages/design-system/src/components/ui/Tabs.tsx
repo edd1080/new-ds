@@ -26,6 +26,28 @@ export function TabsUnderline({ tabs, value, onChange }: TabsUnderlineProps) {
   );
 }
 
+export interface TabsFlushProps {
+  tabs: UnderlineTab[];
+  value: string;
+  onChange: (value: string) => void;
+  /** Additional inline styles on the container. */
+  style?: React.CSSProperties;
+}
+
+/** .tabs / .tab — flush shell-style tabs (no bottom border on container by default). Used in panels like Domains. */
+export function TabsFlush({ tabs, value, onChange, style }: TabsFlushProps) {
+  return (
+    <div className="tabs" style={style}>
+      {tabs.map((t) => (
+        <button key={t.value} className={`tab ${value === t.value ? "active" : ""}`} onClick={() => onChange(t.value)}>
+          {t.label}
+          {t.count !== undefined && <span className="count">{t.count}</span>}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export interface SegmentedTab {
   value: string;
   label: ReactNode;

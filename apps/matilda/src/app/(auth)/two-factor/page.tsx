@@ -24,7 +24,7 @@ export default function TwoFactorPage() {
             <Icon.shield />
           </AuthIcon>
           <h1>Verificación en dos pasos</h1>
-          <p>Ingresá el código de 6 dígitos de tu app de autenticación para autorizar el acceso.</p>
+          <p>Ingresa el código de 6 dígitos de tu app de autenticación para autorizar el acceso.</p>
           <OTPInput value={code} onChange={setCode} />
           <BtnFill style={{ width: "100%", marginTop: 4 }} disabled={submitting}>
             {submitting ? "Autorizando…" : "Autorizar acceso"}

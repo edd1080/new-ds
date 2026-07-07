@@ -105,7 +105,7 @@ export function NewVarSlide({ domain, onClose, onSaved }: NewVarSlideProps) {
           <label>
             Path canónico <span className="req">*</span>
           </label>
-          <div className="desc">Seleccioná del catálogo o escribí manualmente.</div>
+          <div className="desc">Selecciona del catálogo o escribe manualmente.</div>
           <PathAutocomplete value={sourcePath} onChange={setSourcePath} placeholder="Ej: profile.personalInfo.nationalId" />
         </div>
       )}

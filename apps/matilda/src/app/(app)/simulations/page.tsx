@@ -118,7 +118,7 @@ export default function SimulationsPage() {
 
   return (
     <>
-      <SurfaceHeader crumbs="DATA TRANSLATION / SIMULACIONES" title="Simulaciones DMN" sub="Ejecutá modelos de decisión contra datasets de prueba y revisá resultados." />
+      <SurfaceHeader crumbs="DATA TRANSLATION / SIMULACIONES" title="Simulaciones DMN" sub="Ejecuta modelos de decisión contra datasets de prueba y revisa resultados." />
 
       <div style={{ padding: "0 var(--pad-surface) 20px" }}>
         <SimTabBar
@@ -140,64 +140,62 @@ export default function SimulationsPage() {
 
           <div style={{ flex: 1, minWidth: 0 }}>
             {!selectedSim && (
-              <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div className="sim-config-label">MODELO</div>
-                  <div className="sim-model-grid">
-                    {models.map((m) => (
-                      <SimModelCard
-                        key={m.id}
-                        modelName={m.modelName}
-                        modelDescription={m.modelDescription}
-                        active={cfgModelId === m.id}
-                        onClick={() => {
-                          setCfgModelId(m.id);
-                          const firstPublished = m.versions.find((v) => v.published)?.versionId ?? m.versions[0]?.versionId ?? null;
-                          setCfgVersionId(firstPublished);
-                          setCfgDatasetId(null);
-                        }}
+              <div>
+                <div className="sim-config-label">MODELO</div>
+                <div className="sim-model-grid">
+                  {models.map((m) => (
+                    <SimModelCard
+                      key={m.id}
+                      modelName={m.modelName}
+                      modelDescription={m.modelDescription}
+                      active={cfgModelId === m.id}
+                      onClick={() => {
+                        setCfgModelId(m.id);
+                        const firstPublished = m.versions.find((v) => v.published)?.versionId ?? m.versions[0]?.versionId ?? null;
+                        setCfgVersionId(firstPublished);
+                        setCfgDatasetId(null);
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {cfgModel && (
+                  <>
+                    <div className="sim-config-label" style={{ marginTop: 16 }}>
+                      VERSIÓN
+                    </div>
+                    <div className="sim-version-chips">
+                      {cfgModel.versions.map((v) => (
+                        <SimVersionChip key={v.versionId} active={cfgVersionId === v.versionId} onClick={() => setCfgVersionId(v.versionId)}>
+                          {v.name}
+                        </SimVersionChip>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                <div className="sim-config-label" style={{ marginTop: 16 }}>
+                  DATASET
+                </div>
+                {modelDatasets.length === 0 ? (
+                  <div style={{ fontSize: 12.5, color: "var(--ink-4)", fontFamily: "var(--font-mono)" }}>Sin datasets para este modelo — la corrida procesará 1 ítem de prueba.</div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {modelDatasets.map((d) => (
+                      <SimDatasetCard
+                        key={d.id}
+                        title={d.title}
+                        description={d.description}
+                        filename={d.files[0]?.filename}
+                        itemCount={d.files.reduce((s, f) => s + f.itemCount, 0)}
+                        active={cfgDatasetId === d.id}
+                        onClick={() => setCfgDatasetId(d.id)}
                       />
                     ))}
                   </div>
+                )}
 
-                  {cfgModel && (
-                    <>
-                      <div className="sim-config-label" style={{ marginTop: 16 }}>
-                        VERSIÓN
-                      </div>
-                      <div className="sim-version-chips">
-                        {cfgModel.versions.map((v) => (
-                          <SimVersionChip key={v.versionId} active={cfgVersionId === v.versionId} onClick={() => setCfgVersionId(v.versionId)}>
-                            {v.name}
-                          </SimVersionChip>
-                        ))}
-                      </div>
-                    </>
-                  )}
-
-                  <div className="sim-config-label" style={{ marginTop: 16 }}>
-                    DATASET
-                  </div>
-                  {modelDatasets.length === 0 ? (
-                    <div style={{ fontSize: 12.5, color: "var(--ink-4)", fontFamily: "var(--font-mono)" }}>Sin datasets para este modelo — la corrida procesará 1 ítem de prueba.</div>
-                  ) : (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                      {modelDatasets.map((d) => (
-                        <SimDatasetCard
-                          key={d.id}
-                          title={d.title}
-                          description={d.description}
-                          filename={d.files[0]?.filename}
-                          itemCount={d.files.reduce((s, f) => s + f.itemCount, 0)}
-                          active={cfgDatasetId === d.id}
-                          onClick={() => setCfgDatasetId(d.id)}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div style={{ width: 280, flexShrink: 0, position: "sticky", top: 0 }}>
+                <div style={{ marginTop: 24 }}>
                   <SimRunRail
                     modelName={cfgModel?.modelName}
                     versionName={cfgVersion?.name}

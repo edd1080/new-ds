@@ -43,7 +43,7 @@ export function SimRunRail({ modelName, versionName, datasetTitle, execCount, es
       <Button variant="primary" block disabled={!canRun} onClick={onRun} style={{ marginBottom: 8 }}>
         <Icon.play /> {submitting ? "Iniciando…" : "Ejecutar simulación"}
       </Button>
-      <div className="sim-rail-hint">{!canRun && !submitting ? "Seleccioná modelo, versión y dataset para continuar." : "Corre contra el endpoint documentado del servicio."}</div>
+      <div className="sim-rail-hint">{!canRun && !submitting ? "Selecciona modelo, versión y dataset para continuar." : "Corre contra el endpoint documentado del servicio."}</div>
     </div>
   );
 }

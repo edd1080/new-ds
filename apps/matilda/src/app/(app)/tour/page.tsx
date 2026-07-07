@@ -92,14 +92,14 @@ function TUploadV3({ played, onPlay }: StepProps) {
 
   return (
     <>
-      <TourIntro n={1} kicker="Conectar JSON" title="Subí el JSON del cliente">
+      <TourIntro n={1} kicker="Conectar JSON" title="Sube el JSON del cliente">
         Matilda parsea la estructura al instante e infiere paths, tipos y valores de muestra.
       </TourIntro>
       {!played && !up && (
         <DemoEmpty
           icon={<Icon.json />}
           title="Sin JSON cargado"
-          description="Simulá la carga de un JSON de proceso PTC."
+          description="Simula la carga de un JSON de proceso PTC."
           action={
             <button className="btn primary lg" onClick={run}>
               <Icon.upload /> Simular carga de JSON
@@ -238,7 +238,7 @@ function TRulesV3({ played, onPlay }: StepProps) {
 
   return (
     <>
-      <TourIntro n={3} kicker="Revisar reglas" title="Aceptás, rechazás o editás">
+      <TourIntro n={3} kicker="Revisar reglas" title="Aceptas, rechazas o editas">
         Las reglas confirmadas quedan en verde. Las sugeridas esperan tu acción.
       </TourIntro>
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -274,7 +274,7 @@ function TRulesV3({ played, onPlay }: StepProps) {
           );
         })}
       </div>
-      {!allAccepted && <div className="cap">Aceptá las 2 sugerencias pendientes para continuar</div>}
+      {!allAccepted && <div className="cap">Acepta las 2 sugerencias pendientes para continuar</div>}
       {allAccepted && <div className="cap">Todas las reglas confirmadas · listo para el resumen</div>}
     </>
   );
@@ -324,7 +324,7 @@ function TSummaryV3({ played, onPlay }: StepProps) {
         <DemoEmpty
           icon={<Icon.data />}
           title="Sin resumen generado"
-          description="Generá el resumen de capacidades habilitadas."
+          description="Genera el resumen de capacidades habilitadas."
           action={
             <button className="btn primary lg" onClick={run}>
               <Icon.data /> Generar resumen
@@ -456,7 +456,7 @@ export default function TourPage() {
       <div className="tour-rail">
         <div className="ey">Tour guiado</div>
         <h2>Data Translation</h2>
-        <p>Recorré el flujo completo de configuración. Disparás cada simulación a tu ritmo.</p>
+        <p>Recorre el flujo completo de configuración. Disparas cada simulación a tu ritmo.</p>
         <div className="tour-progress">
           <div style={{ width: `${progress}%` }} />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Icon, SurfaceHeader, Button, Dot } from "@bowpi/design-system";
+import { Icon, SurfaceHeader, Button, Dot, StatCard } from "@bowpi/design-system";
 import type { Project } from "@bowpi/design-system";
 import { useMatildaStore } from "../../../store/useMatildaStore";
 import { DT_PROJECTS } from "../../../data/mockData";
@@ -53,10 +53,7 @@ export default function ProjectsPage() {
       <div className="dt-projects">
         <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
           {stats.map((st, i) => (
-            <div key={i} style={{ background: "var(--surface-1)", border: "1px solid var(--line)", borderRadius: "var(--r-sm)", padding: "12px 18px", minWidth: 110 }}>
-              <div style={{ fontSize: 11, fontFamily: "var(--font-mono)", color: "var(--ink-4)", marginBottom: 4 }}>{st.lb}</div>
-              <div style={{ fontSize: 22, fontWeight: 700, fontFamily: "var(--font-display)", color: st.tone ? `var(--${st.tone})` : "var(--ink-1)" }}>{st.v}</div>
-            </div>
+            <StatCard key={i} label={st.lb} value={st.v} tone={st.tone as "ok" | "warn" | "err" | "info" | "accent" | undefined} compact />
           ))}
         </div>
 

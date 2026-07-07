@@ -24,15 +24,15 @@ export default function LoginPage() {
         <AuthForm onSubmit={handleSubmit}>
           <div className="auth-head">
             <h1>Iniciar sesión</h1>
-            <p>Bienvenido de vuelta — ingresá tus credenciales para continuar.</p>
+            <p>Bienvenido de vuelta — ingresa tus credenciales para continuar.</p>
           </div>
 
           <div className="fields">
             <div className="field">
               <label htmlFor="email">Email</label>
-              <FormInput id="email" type="email" placeholder="vos@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
+              <FormInput id="email" type="email" placeholder="tu@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
             </div>
-            <PasswordField id="password" label="Contraseña" placeholder="Ingresá tu contraseña" value={password} onChange={setPassword} autoComplete="current-password" required />
+            <PasswordField id="password" label="Contraseña" placeholder="Ingresa tu contraseña" value={password} onChange={setPassword} autoComplete="current-password" required />
           </div>
 
           <div className="row-between">
@@ -51,7 +51,7 @@ export default function LoginPage() {
           </BtnOutline>
 
           <p className="switch-p">
-            ¿No tenés cuenta?{" "}
+            ¿No tienes cuenta?{" "}
             <button type="button" className="auth-link" onClick={() => router.push("/register")}>
               Crear cuenta
             </button>

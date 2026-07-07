@@ -26,7 +26,7 @@ export default function SummaryPage() {
     return (
       <LockedSurface
         icon={<Icon.data />}
-        heading="Confirmá las reglas primero"
+        heading="Confirma las reglas primero"
         body="El resumen de capacidades se genera después de revisar y confirmar las reglas de mapeo en el paso anterior."
         steps={[
           { label: "Conectar JSON", state: jsonLoaded ? "done" : "now" },

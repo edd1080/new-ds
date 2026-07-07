@@ -29,7 +29,7 @@ export default function ForgotPasswordPage() {
           </div>
           <div className="field">
             <label htmlFor="email">Email</label>
-            <FormInput id="email" type="email" placeholder="vos@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
+            <FormInput id="email" type="email" placeholder="tu@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
           </div>
           <BtnFill disabled={submitting}>{submitting ? "Enviando…" : "Restablecer contraseña"}</BtnFill>
           <div style={{ textAlign: "center" }}>

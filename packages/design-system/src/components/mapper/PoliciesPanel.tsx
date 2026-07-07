@@ -32,7 +32,7 @@ export function PoliciesPanel({ rule, policy, onSetPolicy, catalogItem, availabl
       <div className="policies-panel">
         <div className="policies-empty">
           <Icon.flow width={30} height={30} />
-          <div className="msg">Seleccioná una fila para configurar sus políticas</div>
+          <div className="msg">Selecciona una fila para configurar sus políticas</div>
         </div>
       </div>
     );

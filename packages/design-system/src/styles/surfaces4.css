@@ -279,8 +279,8 @@
   transition: all .15s; background: transparent; white-space: nowrap;
   flex-shrink: 0;
 }
-.row-action.remove  { color: var(--err);  border-color: var(--err-line); }
-.row-action.remove:hover  { background: var(--err-soft); }
+.row-action.remove  { color: var(--ink-3);  border-color: var(--line-2); }
+.row-action.remove:hover  { background: var(--surface-3); border-color: var(--line-strong); color: var(--ink-1); }
 .row-action.approve { color: #22c55e; border-color: rgba(34,197,94,.35); }
 .row-action.approve:hover { background: rgba(34,197,94,.1); }
 .row-action.clear-dest { color: #d97706; border-color: rgba(217,119,6,.35); }
@@ -407,7 +407,7 @@
   cursor: pointer; color: var(--ink-3); background: var(--surface-1);
   font-size: 14px; transition: all .15s;
 }
-.modal-close:hover { border-color: var(--err-line); color: var(--err); background: var(--err-soft); }
+.modal-close:hover { border-color: var(--line-strong); color: var(--ink-1); background: var(--surface-3); }
 .modal-search {
   padding: 12px 16px; border-bottom: 1px solid var(--line); flex-shrink: 0;
 }
@@ -556,6 +556,11 @@ html[data-sidebar="closed"] .sidebar-foot .nm,
 html[data-sidebar="closed"] .sidebar-foot .sb { display: none; }
 html[data-sidebar="closed"] .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
 html[data-sidebar="closed"] .sidebar-item .ico { margin: 0 auto; }
+html[data-sidebar="closed"] .sidebar { overflow: hidden; }
+html[data-sidebar="closed"] .brandcell { padding: 0; justify-content: center; }
+html[data-sidebar="closed"] .sidebar-foot { padding: 14px 0; justify-content: center; }
+html[data-sidebar="closed"] .sidebar-section { padding: 0 6px; }
+html[data-sidebar="closed"] .sidebar-item.active::before { left: -6px; }
 
 /* ===================================================== SETTINGS MENU */
 .sb-settings-menu {
@@ -596,7 +601,7 @@ html[data-sidebar="closed"] .sidebar-item .ico { margin: 0 auto; }
   cursor: pointer; color: var(--ink-5); transition: all .15s; flex-shrink: 0;
 }
 .row-action-trash:hover {
-  color: var(--err); background: var(--err-soft); border-color: var(--err-line);
+  color: var(--ink-2); background: var(--surface-3); border-color: var(--line-strong);
 }
 
 /* ===================================================== PIPELINE TRACKER (animado) */

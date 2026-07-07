@@ -23,7 +23,7 @@ export function VigentePanel({ domain, activeVer, onClose }: VigentePanelProps) 
         </Button>
       </div>
       {!activeVer ? (
-        <div style={{ fontSize: 13, color: "var(--ink-3)", fontStyle: "italic" }}>No hay versión activa. Publicá y habilitá una versión para activar este dominio.</div>
+        <div style={{ fontSize: 13, color: "var(--ink-3)", fontStyle: "italic" }}>No hay versión activa. Publica y habilita una versión para activar este dominio.</div>
       ) : snapVars.length === 0 ? (
         <div style={{ fontSize: 13, color: "var(--ink-3)", fontStyle: "italic" }}>Snapshot vacío (sin variables activas al publicar).</div>
       ) : (

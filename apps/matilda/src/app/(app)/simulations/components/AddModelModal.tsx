@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, SimUploadZone, SimFileRow, SimParsedCard, type DmnModel, type DmnParsedPreview } from "@bowpi/design-system";
+import { Button, Modal, FormInput, Textarea, SimUploadZone, SimFileRow, SimParsedCard, type DmnModel, type DmnParsedPreview } from "@bowpi/design-system";
 
 export interface AddModelModalProps {
   onClose: () => void;
@@ -56,34 +56,12 @@ export function AddModelModal({ onClose, onAdd }: AddModelModalProps) {
   };
 
   return (
-    <div className="sim-modal-overlay" onClick={onClose}>
-      <div className="sim-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="sim-modal-head">
-          <h2>Agregar modelo</h2>
-          <p>Subí un archivo DMN — parseamos sus inputs y decisiones.</p>
-        </div>
-        <div className="sim-modal-body">
-          <div className="form-field">
-            <label>Nombre del modelo</label>
-            <input className="form-input" value={modelName} onChange={(e) => setModelName(e.target.value)} placeholder="Ej: Credit Risk Scoring" />
-          </div>
-          <div className="form-field">
-            <label>
-              Descripción <span style={{ color: "var(--ink-4)", fontWeight: 400 }}>· opcional</span>
-            </label>
-            <textarea className="form-textarea" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Descripción del modelo…" rows={2} />
-          </div>
-          <div className="form-field">
-            <label>Archivo DMN</label>
-            {!file ? (
-              <SimUploadZone label="Elegir archivo .dmn" sub="DMN 1.3 — parseado localmente al importar" accept=".dmn,application/xml,text/xml" onFile={handleFile} />
-            ) : (
-              <SimFileRow badge="DMN" name={file.name} meta={`Parseado · ${(file.size / 1024).toFixed(1)}KB`} onRemove={() => setFile(null)} />
-            )}
-          </div>
-          {parsed && <SimParsedCard parsed={parsed} />}
-        </div>
-        <div className="sim-modal-foot">
+    <Modal
+      title="Agregar modelo"
+      subtitle="Sube un archivo DMN — parseamos sus inputs y decisiones."
+      onClose={onClose}
+      footer={
+        <>
           <span className="meta">{parsed ? `${parsed.inputs.length} inputs · ${parsed.decisions.length} decisiones parseadas` : "Sin archivo aún."}</span>
           <Button variant="ghost" size="sm" onClick={onClose}>
             Cancelar
@@ -91,8 +69,28 @@ export function AddModelModal({ onClose, onAdd }: AddModelModalProps) {
           <Button variant="primary" size="sm" disabled={!parsed || !modelName || adding} onClick={handleAdd}>
             {adding ? "Agregando…" : "Agregar modelo"}
           </Button>
-        </div>
+        </>
+      }
+    >
+      <div className="form-field">
+        <label>Nombre del modelo</label>
+        <FormInput value={modelName} onChange={(e) => setModelName(e.target.value)} placeholder="Ej: Credit Risk Scoring" />
       </div>
-    </div>
+      <div className="form-field">
+        <label>
+          Descripción <span style={{ color: "var(--ink-4)", fontWeight: 400 }}>· opcional</span>
+        </label>
+        <Textarea value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Descripción del modelo…" rows={2} />
+      </div>
+      <div className="form-field">
+        <label>Archivo DMN</label>
+        {!file ? (
+          <SimUploadZone label="Elegir archivo .dmn" sub="DMN 1.3 — parseado localmente al importar" accept=".dmn,application/xml,text/xml" onFile={handleFile} />
+        ) : (
+          <SimFileRow badge="DMN" name={file.name} meta={`Parseado · ${(file.size / 1024).toFixed(1)}KB`} onRemove={() => setFile(null)} />
+        )}
+      </div>
+      {parsed && <SimParsedCard parsed={parsed} />}
+    </Modal>
   );
 }

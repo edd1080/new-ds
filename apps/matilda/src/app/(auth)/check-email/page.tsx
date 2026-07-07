@@ -13,7 +13,7 @@ export default function CheckEmailPage() {
           <AuthIcon>
             <Icon.mail />
           </AuthIcon>
-          <h1>Revisá tu email</h1>
+          <h1>Revisa tu email</h1>
           <p>
             Enviamos un link de verificación a <strong style={{ color: "var(--ink-2)" }}>olivia@empresa.com</strong>
           </p>

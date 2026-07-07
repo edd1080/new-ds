@@ -77,7 +77,7 @@ export function AppShellClient({ children }: { children: ReactNode }) {
       activeProjectStepper={activeProjectStepper}
       theme={theme}
       onThemeChange={setTheme}
-      onReset={reset}
+      onReset={() => { reset(); router.push("/login"); }}
       onOpenSettings={() => router.push("/settings")}
       userName="Jonatán Fernández"
       userRole="Implementación"

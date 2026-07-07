@@ -24,7 +24,7 @@ export default function RegisterPage() {
         <AuthForm onSubmit={handleSubmit}>
           <div className="auth-head">
             <h1>Crear cuenta</h1>
-            <p>Creá tu cuenta y empezá tu período de prueba.</p>
+            <p>Crea tu cuenta y empieza tu período de prueba.</p>
           </div>
 
           <div className="fields">
@@ -34,7 +34,7 @@ export default function RegisterPage() {
             </div>
             <div className="field">
               <label htmlFor="reg-email">Email laboral</label>
-              <FormInput id="reg-email" type="email" placeholder="vos@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
+              <FormInput id="reg-email" type="email" placeholder="tu@empresa.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
             </div>
             <PasswordField
               id="reg-password"
@@ -57,7 +57,7 @@ export default function RegisterPage() {
           </BtnOutline>
 
           <p className="switch-p">
-            ¿Ya tenés cuenta?{" "}
+            ¿Ya tienes cuenta?{" "}
             <button type="button" className="auth-link" onClick={() => router.push("/login")}>
               Iniciar sesión
             </button>

@@ -29,7 +29,7 @@ const XPL_STAGES: XplStage[] = [
     lb: "Subir JSON",
     kick: "Paso 01",
     title: "Un archivo, un árbol de campos",
-    body: "Subís el JSON que tu sistema produce para cada solicitud. Matilda lo parsea al instante e infiere la estructura completa: paths, tipos y valores de muestra.",
+    body: "Subes el JSON que tu sistema produce para cada solicitud. Matilda lo parsea al instante e infiere la estructura completa: paths, tipos y valores de muestra.",
     bullets: ["Sin esquema previo requerido", "Detección de tipos automática", "Soporte para estructuras anidadas"],
     visual: "upload",
   },
@@ -37,14 +37,14 @@ const XPL_STAGES: XplStage[] = [
     lb: "Agente IA",
     kick: "Análisis automático",
     title: "El Agente analiza contra el Canónico v9",
-    body: "El Agente de Mapeo compara tu JSON contra el Canónico v9 interno de Bowpi. Propone reglas con nivel de confianza — vos revisás, no re-hacés.",
+    body: "El Agente de Mapeo compara tu JSON contra el Canónico v9 interno de Bowpi. Propone reglas con nivel de confianza — tú revisas, no rehaces.",
     bullets: ["Coincidencia semántica de tokens", "Tres categorías: match perfecto / sugerido / sin fuente", "Confianza explícita por campo"],
     visual: "agent",
   },
   {
     lb: "Revisar reglas",
-    kick: "Vos decidís",
-    title: "Aceptás, rechazás o editás cada regla",
+    kick: "Tú decides",
+    title: "Aceptas, rechazas o editas cada regla",
     body: "El editor organiza las reglas por categoría. Las seguras están pre-confirmadas. Las sugeridas esperan tu revisión. Los conflictos de tipo se resuelven con una tabla de conversión.",
     bullets: ["DIRECT / CODE_LOOKUP / TYPE_CONV / DERIVATION", "Detalle de razonamiento IA por campo", "Política de nulos por regla"],
     visual: "rules",
@@ -54,7 +54,7 @@ const XPL_STAGES: XplStage[] = [
     kick: "Paso 04",
     title: "La configuración queda activa",
     body: "Al publicar, el Mapper Service registra la configuración con versión semántica. A partir de ese momento, cada evaluación crediticia de ese cliente pasa automáticamente por la traducción.",
-    bullets: ["Versión semántica (ej. ptc-v1.3.0)", "Audit trail de aprobaciones", "Reversible — podés crear una nueva versión"],
+    bullets: ["Versión semántica (ej. ptc-v1.3.0)", "Audit trail de aprobaciones", "Reversible — puedes crear una nueva versión"],
     visual: "publish",
   },
 ];
@@ -201,7 +201,7 @@ export default function ExplainerPage() {
       <div className="xpl-head">
         <div className="eyebrow">Cómo funciona Matilda · Data Translation</div>
         <h1>Del JSON del cliente al motor de decisión</h1>
-        <p>Un recorrido conceptual del módulo — avanzá a tu ritmo. Cuando termines, arrancás la configuración real.</p>
+        <p>Un recorrido conceptual del módulo — avanza a tu ritmo. Cuando termines, empiezas la configuración real.</p>
       </div>
 
       <ExplainerTrack

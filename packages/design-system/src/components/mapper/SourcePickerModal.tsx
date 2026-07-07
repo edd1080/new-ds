@@ -47,7 +47,7 @@ export function SourcePickerModal({ currentPath, availablePaths, onConfirm, onCl
         <div className="dm2-hd">
           <div style={{ flex: 1 }}>
             <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700 }}>Fuente alternativa</h2>
-            <div style={{ fontSize: 11, color: "var(--ink-4)", marginTop: 3, fontFamily: "var(--font-mono)" }}>Seleccioná una ruta del JSON de entrada como respaldo</div>
+            <div style={{ fontSize: 11, color: "var(--ink-4)", marginTop: 3, fontFamily: "var(--font-mono)" }}>Selecciona una ruta del JSON de entrada como respaldo</div>
           </div>
           <button className="modal-close" onClick={onClose}>
             ✕
@@ -110,7 +110,7 @@ export function SourcePickerModal({ currentPath, availablePaths, onConfirm, onCl
             {selected ? (
               <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--accent-ink)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>{selected}</span>
             ) : (
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--ink-5)" }}>Seleccioná una ruta</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--ink-5)" }}>Selecciona una ruta</span>
             )}
           </div>
           <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>

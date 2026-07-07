@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Icon } from "@bowpi/design-system";
+import { Icon, TabsFlush, EmptyState } from "@bowpi/design-system";
 import { DOMAINS_MOCK, domainStatusLabel, domainStatusTone } from "../../../data/mockData";
 import { VarsTab } from "./components/VarsTab";
 import { VersionsTab } from "./components/VersionsTab";
@@ -144,14 +144,15 @@ export default function DomainsPage() {
                 </div>
               </div>
 
-              <div className="tabs" style={{ flexShrink: 0, marginBottom: 0, background: "var(--surface-1)", borderBottom: "1px solid var(--line)" }}>
-                <button className={`tab ${activeTab === "vars" ? "active" : ""}`} onClick={() => setActiveTab("vars")}>
-                  Variables <span className="count">{domain.variableCount.total}</span>
-                </button>
-                <button className={`tab ${activeTab === "versions" ? "active" : ""}`} onClick={() => setActiveTab("versions")}>
-                  Versiones
-                </button>
-              </div>
+              <TabsFlush
+                tabs={[
+                  { value: "vars", label: "Variables", count: domain.variableCount.total },
+                  { value: "versions", label: "Versiones" },
+                ]}
+                value={activeTab}
+                onChange={(v) => setActiveTab(v as "vars" | "versions")}
+                style={{ flexShrink: 0, marginBottom: 0, background: "var(--surface-1)", borderBottom: "1px solid var(--line)" }}
+              />
 
               <div className="dom-tab-scroll">
                 {activeTab === "vars" && <VarsTab domain={domain} mode={mode} onShowToast={showToast} />}
@@ -159,10 +160,7 @@ export default function DomainsPage() {
               </div>
             </>
           ) : (
-            <div className="dom-empty">
-              <Icon.data width={28} height={28} />
-              <h3>Seleccioná un dominio</h3>
-            </div>
+            <EmptyState icon={<Icon.data />} title="Selecciona un dominio" />
           )}
         </div>
       </div>

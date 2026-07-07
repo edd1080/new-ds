@@ -63,7 +63,7 @@ export default function SettingsPage() {
       <SurfaceHeader
         crumbs="WORKSPACE / AJUSTES"
         title="Ajustes"
-        sub="Configurá tu cuenta, preferencias y workspace de implementación."
+        sub="Configura tu cuenta, preferencias y workspace de implementación."
         actions={
           <Button variant="ghost" onClick={() => go("overview")}>
             <Icon.chevronLeft /> Volver

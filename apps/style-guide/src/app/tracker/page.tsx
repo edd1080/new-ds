@@ -43,13 +43,13 @@ export default function TrackerPage() {
           </div>
 
           <div className="ct-stats">
-            <div className="ct-stat" style={{ borderColor: "#bfe2cc" }}>
+            <div className="ct-stat" style={{ borderColor: "#7AD1A2" }}>
               <div className="n" style={{ color: "#1f6640" }}>
                 {counts.ds}
               </div>
               <div className="l">En Design System</div>
             </div>
-            <div className="ct-stat" style={{ borderColor: "#ecd6a2" }}>
+            <div className="ct-stat" style={{ borderColor: "#F8C579" }}>
               <div className="n" style={{ color: "#7a5010" }}>
                 {counts.code}
               </div>

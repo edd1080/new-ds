@@ -437,8 +437,6 @@
 
 /* Run rail */
 .sim-run-rail {
-  position: sticky;
-  top: 0;
   background: var(--surface-1);
   border: 1px solid var(--line-2);
   border-radius: var(--r-md);

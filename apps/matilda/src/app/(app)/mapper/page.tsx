@@ -266,7 +266,7 @@ function MapperEditorInner() {
                 <div className="mapper4-empty" style={{ flex: 1 }}>
                   <Icon.search style={{ width: 28, height: 28 }} />
                   <h3>Sin resultados</h3>
-                  <p>No hay reglas que coincidan con &quot;{search}&quot;. Intentá con otro término o cambiá el filtro.</p>
+                  <p>No hay reglas que coincidan con &quot;{search}&quot;. Intenta con otro término o cambia el filtro.</p>
                 </div>
               )}
 
@@ -371,7 +371,7 @@ export default function MapperPage() {
   if (!agentDone || mappingRules.length === 0) {
     return (
       <LockedSurface
-        heading="Primero completá la ingesta"
+        heading="Primero completa la ingesta"
         body="El editor se activa después de cargar el JSON del cliente y ejecutar el análisis del agente."
         icon={<Icon.flow />}
         steps={[

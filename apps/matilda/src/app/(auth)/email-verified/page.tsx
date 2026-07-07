@@ -14,7 +14,7 @@ export default function EmailVerifiedPage() {
             <Icon.checkCircle />
           </AuthIcon>
           <h1>Email verificado</h1>
-          <p>Tu email fue verificado correctamente. Ya podés iniciar sesión.</p>
+          <p>Tu email fue verificado correctamente. Ya puedes iniciar sesión.</p>
           <BtnFill type="button" style={{ width: "100%" }} onClick={() => router.push("/login")}>
             Continuar a iniciar sesión
           </BtnFill>

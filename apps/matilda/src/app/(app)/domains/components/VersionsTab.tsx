@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Icon, Button, ConfirmDialog } from "@bowpi/design-system";
+import { Icon, Button, ConfirmDialog, EmptyState } from "@bowpi/design-system";
 import { VERSIONS_MOCK, type DomainRecord, type DomainVersion } from "../../../../data/mockData";
 import { VigentePanel } from "./VigentePanel";
 import { VersionRow, type VersionAction } from "./VersionRow";
@@ -100,7 +100,7 @@ export function VersionsTab({ domain, mode, onPublish, onShowToast }: VersionsTa
         <div style={{ flex: 1 }} />
         {mode === "admin" && (
           <div className="dom-note" style={{ fontSize: 11.5, maxWidth: 360, margin: 0, lineHeight: 1.5 }}>
-            Varias versiones pueden estar habilitadas a la vez. La marcada &quot;Activa&quot; es la vigente. Usá ★ Hacer activa para cambiar entre ellas.
+            Varias versiones pueden estar habilitadas a la vez. La marcada &quot;Activa&quot; es la vigente. Usa ★ Hacer activa para cambiar entre ellas.
           </div>
         )}
       </div>
@@ -108,11 +108,11 @@ export function VersionsTab({ domain, mode, onPublish, onShowToast }: VersionsTa
       {showVigente && <VigentePanel domain={domain} activeVer={activeVer} onClose={() => setShowVigente(false)} />}
 
       {visibleVersions.length === 0 ? (
-        <div className="dom-empty">
-          <Icon.bolt width={28} height={28} />
-          <h3>Sin versiones publicadas</h3>
-          <p>Activá variables y usá &quot;Publicar versión&quot; para crear el primer snapshot inmutable.</p>
-        </div>
+        <EmptyState
+          icon={<Icon.bolt />}
+          title="Sin versiones publicadas"
+          description="Activa variables y usa &quot;Publicar versión&quot; para crear el primer snapshot inmutable."
+        />
       ) : (
         <div className="dom-ver-table-wrap">
           <table className="dom-ver-table">

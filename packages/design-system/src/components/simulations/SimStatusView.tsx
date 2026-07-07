@@ -7,7 +7,7 @@
 export function SimEmptyState() {
   return (
     <div className="sim-empty-state">
-      <span>Seleccioná una simulación del historial.</span>
+      <span>Selecciona una simulación del historial.</span>
     </div>
   );
 }
@@ -81,7 +81,7 @@ export function SimFailedView({ message }: SimFailedViewProps) {
         <div className="sim-error-block">
           <pre>{message || "Error desconocido."}</pre>
         </div>
-        <div className="sim-error-remedy">No se confirmaron ejecuciones. Verificá que el schema del dataset coincida con los inputs requeridos por el modelo.</div>
+        <div className="sim-error-remedy">No se confirmaron ejecuciones. Verifica que el schema del dataset coincida con los inputs requeridos por el modelo.</div>
       </div>
     </div>
   );

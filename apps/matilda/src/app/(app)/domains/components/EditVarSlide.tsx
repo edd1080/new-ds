@@ -59,7 +59,7 @@ export function EditVarSlide({ variable, mode, onClose, onSaved }: EditVarSlideP
         </>
       }
     >
-      {!isAdmin && <div className="dom-note">En modo Mi organización solo podés editar nombre, descripción y ejemplo en tus propias variables.</div>}
+      {!isAdmin && <div className="dom-note">En modo Mi organización solo puedes editar nombre, descripción y ejemplo en tus propias variables.</div>}
 
       <div className="form-field">
         <label>Nombre técnico</label>

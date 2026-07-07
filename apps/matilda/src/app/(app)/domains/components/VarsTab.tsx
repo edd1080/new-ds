@@ -207,7 +207,7 @@ export function VarsTab({ domain, mode, onShowToast }: VarsTabProps) {
         <div className="dom-empty">
           <Icon.data width={28} height={28} />
           <h3>{vars.length === 0 ? "Sin variables" : "Sin resultados"}</h3>
-          <p>{vars.length === 0 ? "Este dominio aún no tiene variables. Usá + Variable para agregar la primera." : "Probá cambiando los filtros de búsqueda."}</p>
+          <p>{vars.length === 0 ? "Este dominio aún no tiene variables. Usa + Variable para agregar la primera." : "Prueba cambiando los filtros de búsqueda."}</p>
         </div>
       )}
 

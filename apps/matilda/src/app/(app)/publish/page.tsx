@@ -23,8 +23,8 @@ export default function PublishPage() {
     return (
       <LockedSurface
         icon={<Icon.bolt />}
-        heading="Revisá el resumen primero"
-        body="Revisá las capacidades habilitadas antes de activar la configuración en producción."
+        heading="Revisa el resumen primero"
+        body="Revisa las capacidades habilitadas antes de activar la configuración en producción."
         steps={[
           { label: "Conectar JSON", state: jsonLoaded ? "done" : "now" },
           { label: "Mapear variables", state: rulesConfirmed ? "done" : jsonLoaded ? "now" : "pending" },

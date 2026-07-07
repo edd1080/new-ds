@@ -344,7 +344,7 @@ export function DestinationModal({ sourcePath, currentPath, usedPaths, catalog, 
                 {selectedItem?.name && <div style={{ fontSize: 11, color: "var(--ink-4)" }}>{selectedItem.name}</div>}
               </div>
             ) : (
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--ink-5)" }}>Seleccioná un campo del catálogo canónico</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--ink-5)" }}>Selecciona un campo del catálogo canónico</span>
             )}
           </div>
           <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
