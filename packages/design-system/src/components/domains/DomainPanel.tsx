@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import { Icon } from "../../icons/Icon";
 import { TypeBadge } from "../ui/TypeBadge";
+import { DomainBadge } from "../mapper/DomainBadge";
+import { DomainLegend } from "./DomainLegend";
+import { getDomainColor, getDomainName } from "../../domainColors";
 import type { MappingRule } from "../../types/matilda";
 
 /** Minimal shape this panel needs from a canonical-catalog lookup — kept decoupled from any concrete catalog data source. */
@@ -21,16 +24,6 @@ interface DomainGroup {
   rules: MappingRule[];
 }
 
-/** Hardcoded per canonical domain family — documented exception (cursor_handoff/AGENTS.md §2). */
-const DOMAIN_COLORS: Record<string, string> = {
-  META: "#5ce0d8",
-  PROC: "#7cb3f0",
-  PERFIL: "#c084fc",
-  CRED: "#86d986",
-  BURO: "#f0a05c",
-  EXTRA: "#e0c050",
-};
-
 /**
  * .dom-panel — Domain Review Panel (PRD §7.7). Groups matched mapping rules by canonical
  * domain family, with a collapsible header (progress bar + count/%) and an expandable
@@ -49,7 +42,7 @@ export function DomainPanel({ rules, getCatalogItem }: DomainPanelProps) {
     matchedRules.forEach((rule) => {
       const item = rule.destinationPath ? getCatalogItem(rule.destinationPath) : null;
       const key = item?.domainId || "null";
-      const name = key === "null" ? "Sin dominio" : key.replace("D-", "");
+      const name = key === "null" ? "Sin dominio" : getDomainName(key);
       if (!map[key]) map[key] = { domainId: item?.domainId ?? null, name, rules: [] };
       map[key].rules.push(rule);
     });
@@ -77,9 +70,12 @@ export function DomainPanel({ rules, getCatalogItem }: DomainPanelProps) {
 
   if (matchedRules.length === 0) {
     return (
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, color: "var(--ink-4)", padding: 40 }}>
-        <Icon.data style={{ width: 28, height: 28, opacity: 0.25 }} />
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, textAlign: "center" }}>No hay reglas mapeadas para revisar</div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "20px var(--pad-surface)" }}>
+        <DomainLegend />
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, color: "var(--ink-4)", padding: 40 }}>
+          <Icon.data style={{ width: 28, height: 28, opacity: 0.25 }} />
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, textAlign: "center" }}>No hay reglas mapeadas para revisar</div>
+        </div>
       </div>
     );
   }
@@ -104,20 +100,24 @@ export function DomainPanel({ rules, getCatalogItem }: DomainPanelProps) {
         </div>
       </div>
 
+      <DomainLegend />
+
       {/* Groups */}
       {groups.map((group) => {
         const key = group.domainId ?? "null";
         const isOpen = !!expanded[key];
         const pct = Math.round((group.rules.length / matchedRules.length) * 100);
         const barW = Math.round((group.rules.length / maxCount) * 100);
-        const color = group.domainId ? DOMAIN_COLORS[group.name] ?? "var(--accent)" : "var(--ink-4)";
+        const color = group.domainId
+          ? getDomainColor(group.domainId)
+          : { background: "transparent", text: "var(--ink-4)", border: "var(--line)", dot: "var(--ink-4)" };
 
         return (
           <div key={key} style={{ marginBottom: 8, border: "1px solid var(--line)", borderRadius: "var(--r-md)", overflow: "hidden", background: "var(--surface-1)" }}>
             {/* Group header row */}
             <div
               onClick={() => setExpanded((p) => ({ ...p, [key]: !p[key] }))}
-              style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", cursor: "pointer", background: isOpen ? "var(--surface-2)" : "transparent", transition: "background .12s" }}
+              style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", cursor: "pointer", background: isOpen ? color.background : "transparent", transition: "background .12s" }}
             >
               <svg
                 width="12"
@@ -131,10 +131,10 @@ export function DomainPanel({ rules, getCatalogItem }: DomainPanelProps) {
               >
                 <path d="M4 2l4 4-4 4" />
               </svg>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }} />
+              {group.domainId ? <DomainBadge domainId={group.domainId} size="default" /> : <span style={{ width: 10, height: 10, borderRadius: "50%", background: color.dot, flexShrink: 0 }} />}
               <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--ink-1)", flex: 1 }}>{group.name}</span>
               <div style={{ flex: "0 0 100px", height: 5, background: "var(--surface-3)", borderRadius: 3, overflow: "hidden" }}>
-                <div style={{ width: `${barW}%`, height: "100%", background: color, borderRadius: 3, transition: "width .35s" }} />
+                <div style={{ width: `${barW}%`, height: "100%", background: color.dot, borderRadius: 3, transition: "width .35s" }} />
               </div>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--ink-4)", minWidth: 58, textAlign: "right" }}>
                 {group.rules.length} <span style={{ opacity: 0.55 }}>({pct}%)</span>
@@ -158,7 +158,7 @@ export function DomainPanel({ rules, getCatalogItem }: DomainPanelProps) {
                     {group.rules.map((rule, i) => (
                       <tr key={rule.id} style={{ borderTop: i > 0 ? "1px solid var(--line)" : "none" }}>
                         <td style={{ padding: "8px 14px", fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--ink-2)", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rule.sourcePath}</td>
-                        <td style={{ padding: "8px 14px", fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--accent-ink)", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rule.destinationPath || "—"}</td>
+                        <td style={{ padding: "8px 14px", fontFamily: "var(--font-mono)", fontSize: 11.5, color: getDomainColor(group.domainId ?? "D-DEFAULT").text, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rule.destinationPath || "—"}</td>
                         <td style={{ padding: "8px 14px" }}>
                           <TypeBadge type={rule.sourceType} />
                         </td>

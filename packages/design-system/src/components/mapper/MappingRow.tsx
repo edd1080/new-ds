@@ -1,15 +1,19 @@
 import { TypeBadge } from "../ui/TypeBadge";
 import { NullPolicyBadge } from "./NullPolicyBadge";
-import { DomainBadge } from "./DomainBadge";
+import { getDomainColor, type DomainColor } from "../../domainColors";
 import type { MappingRule, RulePolicyV2 } from "../../types/matilda";
 
-function MapperDestBadge({ path, onClick }: { path: string | null; onClick: () => void }) {
+function MapperDestBadge({ path, onClick, domainColor }: { path: string | null; onClick: () => void; domainColor?: DomainColor }) {
+  const domainStyle = domainColor
+    ? { background: domainColor.background, color: domainColor.text, borderColor: domainColor.border }
+    : undefined;
   if (path) {
     const segments = path.split(".");
     const display = segments.length > 2 ? segments.slice(-2).join(".") : path;
     return (
       <button
-        className="dest-badge assigned"
+        className={`dest-badge assigned${domainColor ? " domain-colored" : ""}`}
+        style={domainStyle}
         title={path}
         onClick={(e) => {
           e.stopPropagation();
@@ -47,12 +51,13 @@ export interface MappingRowProps {
   domainId?: string | null;
 }
 
-/** .mrow4 — one mapping rule: source path → destination badge + type/policy/domain badges + row actions. */
+/** .mrow4 — one mapping rule: source path, separated destination control, right-aligned metadata, and row actions. */
 export function MappingRow({ rule, policy, selected, onSelect, onOpenModal, onRequestRemove, onMoveToMatched, onClearDestination, domainId }: MappingRowProps) {
   const isMatched = rule.category === "matched";
   const hasDestination = !!rule.destinationPath;
   const effectiveTransform = policy.transformationPolicy ?? rule.transformationPolicy;
   const effectiveNullPol = policy.nullPolicy ?? rule.nullPolicy ?? "REQUIRED";
+  const domainColor = domainId ? getDomainColor(domainId) : undefined;
 
   return (
     <div className={`mrow4 ${selected ? "selected" : ""}`} onClick={() => onSelect(rule.id)}>
@@ -62,7 +67,9 @@ export function MappingRow({ rule, policy, selected, onSelect, onOpenModal, onRe
 
       <span className="row-arrow">→</span>
 
-      <MapperDestBadge path={rule.destinationPath} onClick={() => onOpenModal(rule.id)} />
+      <div className="mrow4-destination">
+        <MapperDestBadge path={rule.destinationPath} onClick={() => onOpenModal(rule.id)} domainColor={domainColor} />
+      </div>
 
       <div className="mrow4-badges">
         <TypeBadge type={rule.sourceType} variant="mapper" />
@@ -72,7 +79,6 @@ export function MappingRow({ rule, policy, selected, onSelect, onOpenModal, onRe
           </span>
         )}
         <NullPolicyBadge policy={effectiveNullPol} />
-        {rule.destinationPath && domainId && <DomainBadge domainId={domainId} />}
         {!isMatched && rule.unmappedReason && (
           <span className="unmapped-reason" title={rule.unmappedReason}>
             {rule.unmappedReason}

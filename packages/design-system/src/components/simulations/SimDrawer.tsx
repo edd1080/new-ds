@@ -10,13 +10,15 @@ export interface SimDrawerProps {
   latencyMs?: number | null;
   decisionCount: number;
   onClose: () => void;
+  /** Optional layer selector row (SimLayerTabs), rendered below the top bar. */
+  layerTabs?: ReactNode;
   /** Graph canvas + node detail panel area. */
   children: ReactNode;
   bottomPanel: ReactNode;
 }
 
-/** .sim-drawer — fullscreen overlay: top bar, graph area (children), bottom panel. */
-export function SimDrawer({ execIndex, success, latencyMs, decisionCount, onClose, children, bottomPanel }: SimDrawerProps) {
+/** .sim-drawer — fullscreen overlay: top bar, optional layer tabs, graph area (children), bottom panel. */
+export function SimDrawer({ execIndex, success, latencyMs, decisionCount, onClose, layerTabs, children, bottomPanel }: SimDrawerProps) {
   return (
     <div className="sim-drawer">
       <div className="sim-drawer-bar">
@@ -42,6 +44,8 @@ export function SimDrawer({ execIndex, success, latencyMs, decisionCount, onClos
           <Icon.close width={12} height={12} />
         </Button>
       </div>
+
+      {layerTabs}
 
       <div style={{ flex: 1, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>{children}</div>
 

@@ -109,14 +109,62 @@ export interface DecisionResult {
   messages: DecisionMessage[];
 }
 
+/**
+ * Pipeline layer a model belongs to within a multi-model (layered) execution.
+ * Layers always execute in this order: DOMAIN → RULES → EVALUATION.
+ */
+export type ModelLayer = "DOMAIN" | "RULES" | "EVALUATION";
+
+/**
+ * Whether a model reads raw profile data (SINGLE) or aggregates results
+ * produced by previous layers (BUNDLE).
+ */
+export type ModelNature = "SINGLE" | "BUNDLE";
+
+export interface ModelResultError {
+  code: string;
+  message: string;
+}
+
+/**
+ * The result of running ONE model within a (possibly multi-model) execution.
+ * For a single-model execution, `SimExecution.modelResults` has exactly one
+ * entry shaped like this. For a layered execution, one entry per layer.
+ */
+export interface ModelResult {
+  modelName: string;
+  modelLayer: ModelLayer;
+  modelNature: ModelNature;
+  success: boolean;
+  /** Execution order within the sequence (DOMAIN layers first, then RULES, then EVALUATION). */
+  order: number;
+  /** Inputs this model received — base profile + accumulated results from earlier layers. */
+  contextInputs: Record<string, unknown>;
+  decisionResults: DecisionResult[];
+  messages: DecisionMessage[];
+  error?: ModelResultError;
+}
+
 export interface SimExecution {
   id: string;
   success: boolean;
   request: Record<string, unknown>;
+  /** Aggregated across all modelResults — every decision produced by any model/layer. */
   decisionResults: DecisionResult[];
   error: unknown;
   createdAt: string;
   finishedAt: string;
+  /**
+   * Per-model/layer breakdown. Present on every execution: a single-model run
+   * has exactly one entry; a layered run has one entry per model in the
+   * DOMAIN → RULES → EVALUATION sequence. Optional for backward compatibility
+   * with executions seeded before this field existed.
+   */
+  modelResults?: ModelResult[];
+  /** Domain verdicts accumulated so far and passed forward to later layers. */
+  accumulatedDomainResults?: Record<string, unknown>;
+  /** Rule outcomes accumulated so far and passed forward to later layers. */
+  accumulatedRuleResults?: Record<string, unknown>;
 }
 
 /** decisionId → its DecisionResult for a given execution — used to overlay the DMN graph. */

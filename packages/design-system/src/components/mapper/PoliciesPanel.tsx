@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Icon } from "../../icons/Icon";
 import { TypeBadge } from "../ui/TypeBadge";
+import { DomainBadge } from "./DomainBadge";
 import { SourcePickerModal } from "./SourcePickerModal";
 import type { MappingRule, RulePolicyV2, CanonicalCatalogItem, TransformPolicy } from "../../types/matilda";
 
@@ -19,10 +20,12 @@ export interface PoliciesPanelProps {
   catalogItem?: CanonicalCatalogItem | null;
   /** Other rules' source paths, for the alternative-source picker. */
   availablePaths: string[];
+  /** Opens the mapper's existing destination modal for the selected rule. */
+  onAssignDestination?: () => void;
 }
 
 /** .policies-panel — right panel of the Mapper Editor. Field metadata + policies (PRD §7.5). */
-export function PoliciesPanel({ rule, policy, onSetPolicy, catalogItem, availablePaths }: PoliciesPanelProps) {
+export function PoliciesPanel({ rule, policy, onSetPolicy, catalogItem, availablePaths, onAssignDestination }: PoliciesPanelProps) {
   const [condKey, setCondKey] = useState("");
   const [condVal, setCondVal] = useState("");
   const [altPickerOpen, setAltPickerOpen] = useState(false);
@@ -81,8 +84,13 @@ export function PoliciesPanel({ rule, policy, onSetPolicy, catalogItem, availabl
             <span className="fk">Tipo</span>
             <TypeBadge type={rule.sourceType} variant="mapper" />
           </div>
-          <div className="field-info-row">
-            <span className="fk">Destino</span>
+          <div className="field-info-row field-info-destination">
+            <div className="field-info-destination-label">
+              <span className="fk">Destino</span>
+              <button className="policy-destination-action" type="button" onClick={onAssignDestination} disabled={!onAssignDestination}>
+                Asignar
+              </button>
+            </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <span className={`fv ${rule.destinationPath ? "" : "no-dest"}`} style={{ display: "block" }}>
                 {rule.destinationPath || "(sin asignar)"}
@@ -98,9 +106,7 @@ export function PoliciesPanel({ rule, policy, onSetPolicy, catalogItem, availabl
           {catalogItem?.domainId && (
             <div className="field-info-row">
               <span className="fk">Dominio</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, background: "var(--accent-soft)", color: "var(--accent-ink)", border: "1px solid var(--accent-line)", padding: "1px 7px", borderRadius: 3 }}>
-                {catalogItem.domainId.replace("D-", "")}
-              </span>
+              <DomainBadge domainId={catalogItem.domainId} size="sm" />
             </div>
           )}
         </div>

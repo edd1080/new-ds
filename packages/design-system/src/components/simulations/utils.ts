@@ -3,7 +3,7 @@
  * Ported from project/v4/simulations-data.jsx and simulations-sidebar.jsx.
  */
 import type { DotTone } from "../primitives/Dot";
-import type { SimExecution, SimOverlayMap, SimStatus } from "./types";
+import type { DmnGraph, ModelLayer, ModelResult, SimExecution, SimOverlayMap, SimStatus } from "./types";
 
 export const SIM_STATUS_LABEL: Record<SimStatus, string> = {
   COMPLETED: "Completada",
@@ -73,4 +73,109 @@ export function simBuildOverlay(execution?: SimExecution | null): SimOverlayMap 
     map[d.decisionId] = d;
   });
   return map;
+}
+
+/** Builds a decisionId → DecisionResult overlay map scoped to a single model/layer. */
+export function simBuildLayerOverlay(model?: ModelResult | null): SimOverlayMap {
+  if (!model) return {};
+  const map: SimOverlayMap = {};
+  model.decisionResults.forEach((d) => {
+    map[d.decisionId] = d;
+  });
+  return map;
+}
+
+// ─── Layer helpers (multi-model / pipeline executions) ─────────────────────
+
+export const SIM_LAYER_LABEL: Record<ModelLayer, string> = {
+  DOMAIN: "Dominio",
+  RULES: "Reglas",
+  EVALUATION: "Evaluación",
+};
+
+/** Chip tone per layer — DOMAIN=info, RULES=accent(brand), EVALUATION=ok. */
+export function simLayerTone(layer: ModelLayer): "info" | "brand" | "ok" {
+  if (layer === "DOMAIN") return "info";
+  if (layer === "RULES") return "brand";
+  return "ok";
+}
+
+/** Whether an execution's results span more than one model (i.e. a layered pipeline). */
+export function simIsLayered(exec: SimExecution): boolean {
+  return (exec.modelResults?.length ?? 0) > 1;
+}
+
+/** modelResults sorted by execution order (DOMAIN → RULES → EVALUATION). */
+export function simOrderedModelResults(exec: SimExecution): ModelResult[] {
+  return [...(exec.modelResults ?? [])].sort((a, b) => a.order - b.order);
+}
+
+/** Looks up a specific model/layer's result by model name. */
+export function simFindModelResult(exec: SimExecution, modelName: string | null): ModelResult | null {
+  if (!modelName) return null;
+  return exec.modelResults?.find((m) => m.modelName === modelName) ?? null;
+}
+
+export interface SimLayerStats {
+  modelName: string;
+  modelLayer: ModelLayer;
+  modelNature: "SINGLE" | "BUNDLE";
+  order: number;
+  successRate: number;
+  runs: number;
+}
+
+/**
+ * Aggregates per-model success rate across all executions of a simulation —
+ * used by the "Layers" summary card in ResultsView. Returns an empty array
+ * if no execution has more than one model (i.e. the run is not layered).
+ */
+export function simAggregateLayerStats(executions: SimExecution[]): SimLayerStats[] {
+  const byModel = new Map<string, { modelLayer: ModelLayer; modelNature: "SINGLE" | "BUNDLE"; order: number; ok: number; total: number }>();
+  let maxModels = 0;
+  executions.forEach((exec) => {
+    const models = exec.modelResults ?? [];
+    maxModels = Math.max(maxModels, models.length);
+    models.forEach((m) => {
+      const entry = byModel.get(m.modelName) ?? { modelLayer: m.modelLayer, modelNature: m.modelNature, order: m.order, ok: 0, total: 0 };
+      entry.total += 1;
+      if (m.success) entry.ok += 1;
+      byModel.set(m.modelName, entry);
+    });
+  });
+  if (maxModels <= 1) return [];
+  return Array.from(byModel.entries())
+    .map(([modelName, v]) => ({
+      modelName,
+      modelLayer: v.modelLayer,
+      modelNature: v.modelNature,
+      order: v.order,
+      successRate: v.total > 0 ? v.ok / v.total : 0,
+      runs: v.total,
+    }))
+    .sort((a, b) => a.order - b.order);
+}
+
+/**
+ * Filters a DMN graph down to only the nodes/edges relevant to one model's
+ * decisions (its decisionResults' decisionIds), plus their direct input
+ * requirements. Falls back to the full graph if nothing matches (e.g. the
+ * graph doesn't carry per-layer node metadata yet).
+ */
+export function simFilterGraphByModel(graph: DmnGraph, model: ModelResult | null): DmnGraph {
+  if (!model) return graph;
+  const decisionIds = new Set(model.decisionResults.map((d) => d.decisionId));
+  const relevantNodeIds = new Set<string>();
+  graph.nodes.forEach((n) => {
+    if (n.type === "decision" && n.data.decisionId && decisionIds.has(n.data.decisionId)) relevantNodeIds.add(n.id);
+  });
+  if (relevantNodeIds.size === 0) return graph;
+  // Include direct predecessors (inputs/decisions feeding into this layer's decisions).
+  graph.edges.forEach((e) => {
+    if (relevantNodeIds.has(e.target)) relevantNodeIds.add(e.source);
+  });
+  return {
+    nodes: graph.nodes.filter((n) => relevantNodeIds.has(n.id)),
+    edges: graph.edges.filter((e) => relevantNodeIds.has(e.source) && relevantNodeIds.has(e.target)),
+  };
 }

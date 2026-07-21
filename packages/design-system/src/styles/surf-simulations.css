@@ -516,6 +516,65 @@
 .sim-dist-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--ink-3); }
 .sim-dist-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
 
+/* ── Layers card (multi-model pipeline summary) ── */
+.sim-layers-card {
+  background: var(--surface-1);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.sim-layers-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sim-layers-count { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4); }
+.sim-layers-list { display: flex; flex-direction: column; gap: 8px; }
+.sim-layer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  position: relative;
+}
+.sim-layer-order {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  color: var(--ink-3);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.sim-layer-info { flex: 1; min-width: 0; }
+.sim-layer-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sim-layer-name { font-size: 13px; font-weight: 600; color: var(--ink-1); }
+.sim-layer-nature { font-size: 11px; color: var(--ink-4); }
+.sim-layer-rate { text-align: right; flex-shrink: 0; }
+.sim-layer-rate-value { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.sim-layer-rate-value.ok { color: var(--ok); }
+.sim-layer-rate-value.err { color: var(--err); }
+.sim-layer-rate-value.warn { color: var(--warn); }
+.sim-layer-rate-label { font-size: 10px; color: var(--ink-4); font-family: var(--font-mono); }
+.sim-layer-connector {
+  position: absolute;
+  left: 20px;
+  bottom: -9px;
+  width: 2px;
+  height: 8px;
+  background: var(--line-2);
+}
+
 /* ── Table ── */
 .sim-table-head {
   display: flex;
@@ -585,6 +644,76 @@
 .sim-td-outcomes.has-fail { color: var(--err); }
 .sim-td-latency { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); }
 
+/* Swappable decision column header (rotates when clicked, no pinned columns) */
+.sim-th-swap { cursor: pointer; transition: color 0.12s; }
+.sim-th-swap:hover { color: var(--accent-ink); }
+.sim-th-swap-caret { opacity: 0.6; }
+
+/* ── Column pin popover ── */
+.sim-pin-popover-wrap { position: relative; display: inline-block; }
+.sim-pin-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 260px;
+  background: var(--surface-1);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  padding: 12px;
+  animation: m-fade-up 0.15s both;
+}
+.sim-pin-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-1);
+  margin-bottom: 4px;
+}
+.sim-pin-reset {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--accent-ink);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.sim-pin-reset:hover { text-decoration: underline; }
+.sim-pin-popover-hint { font-size: 11px; color: var(--ink-4); margin-bottom: 8px; }
+.sim-pin-popover-list { display: flex; flex-direction: column; gap: 2px; max-height: 220px; overflow-y: auto; }
+.sim-pin-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--r-xs);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  transition: background 0.1s;
+}
+.sim-pin-item:hover:not(:disabled) { background: var(--surface-3); }
+.sim-pin-item.checked { color: var(--accent-ink); font-weight: 600; }
+.sim-pin-item:disabled { opacity: 0.4; cursor: not-allowed; }
+.sim-pin-check {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1.5px solid var(--line-2);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.sim-pin-item.checked .sim-pin-check { background: var(--accent); border-color: var(--accent); color: #00282e; }
+.sim-pin-name { font-family: var(--font-mono); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 /* ── ExecutionDrawer ── */
 .sim-drawer {
   position: fixed;
@@ -608,6 +737,38 @@
 .sim-drawer-item { font-size: 12.5px; color: var(--ink-2); }
 .sim-drawer-item.mono { font-family: var(--font-mono); font-size: 11.5px; }
 .sim-drawer-spacer { flex: 1; }
+
+/* ── Layer tabs (multi-model execution selector) ── */
+.sim-layer-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-1);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.sim-layer-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-2);
+  background: var(--surface-1);
+  color: var(--ink-2);
+  font-size: 12.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.13s;
+  flex-shrink: 0;
+}
+.sim-layer-tab:hover { border-color: var(--line-strong); background: var(--surface-3); }
+.sim-layer-tab.active { border-color: var(--accent-line); background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+.sim-layer-tab-name { font-weight: 600; }
+.sim-layer-tab .chip { font-size: 9.5px; padding: 1px 6px; }
+.sim-layer-tab-sep { width: 1px; height: 18px; background: var(--line-2); flex-shrink: 0; margin: 0 2px; }
 
 /* DMN Canvas */
 .sim-dmn-wrap {
@@ -760,7 +921,7 @@
   height: 36px;
   border-bottom: 1px solid var(--line);
 }
-.sim-bottom-bar .lbl { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+.sim-bottom-bar .lbl { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
 .sim-bottom-cols { display: grid; grid-template-columns: repeat(3, 1fr); height: 300px; overflow: hidden; }
 .sim-bottom-col { border-right: 1px solid var(--line); overflow-y: auto; }
 .sim-bottom-col:last-child { border-right: none; }
@@ -770,6 +931,14 @@
 .sim-detail-table td { padding: 7px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .sim-detail-table td:first-child { color: var(--ink-3); font-family: var(--font-mono); font-size: 10.5px; width: 38%; }
 .sim-detail-table tr:last-child td { border-bottom: none; }
+.sim-layer-outputs { padding: 10px 16px; border-top: 1px solid var(--line); background: var(--surface-2); }
+.sim-layer-outputs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sim-layer-output-block { display: flex; flex-direction: column; gap: 2px; }
+.sim-layer-output-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); margin-bottom: 3px; }
+.sim-layer-output-row { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; padding: 3px 0; border-bottom: 1px dashed var(--line); }
+.sim-layer-output-row:last-child { border-bottom: none; }
+.sim-layer-output-row .k { color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; }
+.sim-layer-output-row .v { color: var(--ink-1); font-weight: 600; font-family: var(--font-mono); font-size: 11px; }
 .sim-raw-toggle { display: flex; align-items: center; gap: 7px; padding: 8px 16px; background: var(--surface-2); border-top: 1px solid var(--line); cursor: pointer; font-size: 12px; color: var(--ink-3); border: none; width: 100%; }
 .sim-raw-toggle:hover { background: var(--surface-3); }
 .sim-raw-pre { background: var(--surface-0); border-top: 1px solid var(--line); padding: 12px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2); overflow: auto; max-height: 200px; margin: 0; white-space: pre; }

@@ -199,7 +199,7 @@
 .op-badge.TYPE_CONV  { background: var(--warn-soft);  color: var(--warn); border-color: var(--warn-line); }
 .op-badge.CODE_LOOKUP{ background: var(--info-soft);  color: var(--info); border-color: var(--info-line); }
 .op-badge.DERIVATION { background: var(--accent-soft);color: var(--accent);border-color: var(--accent-line); }
-.domain-badge { font-size: 10px; padding: 2px 5px; border-radius: 4px; background: var(--surface-3); color: var(--ink-4); font-family: var(--font-mono); flex-shrink: 0; border: 1px solid var(--line); }
+.domain-badge { display: inline-block; width: 12px; height: 12px; min-width: 12px; padding: 0; border-radius: 50%; background: var(--surface-3); flex-shrink: 0; border: none; }
 .ai-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-family: var(--font-mono); flex-shrink: 0; border: 1px solid var(--accent-line); }
 .rule-actions { display: flex; gap: 4px; margin-left: auto; flex-shrink: 0; }
 .rule-actions .r-btn {

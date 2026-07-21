@@ -4,14 +4,27 @@ import { simLatencyLabel, simExecLatency, simOutcomeLabel } from "./utils";
 
 export interface SimResultsTableProps {
   executions: SimExecution[];
-  /** Header + cell for the primary decision column, e.g. "DecisiónFinal". */
+  /** Header + cell for the single decision column when nothing is pinned, e.g. "DecisiónFinal". */
   decisionLabel: string;
+  /** Decision names pinned as comparable columns (up to 3). Empty = single swappable column. */
+  pinnedDecisions?: string[];
+  /** Called when the user clicks the swappable column header to cycle to the next decision (only used when pinnedDecisions is empty). */
+  onCycleDecision?: () => void;
   openExecId?: string | null;
   onRowClick: (exec: SimExecution) => void;
 }
 
-/** .sim-table — per-item results table (ítem / estado / decisión / outcomes / latencia). */
-export function SimResultsTable({ executions, decisionLabel, openExecId, onRowClick }: SimResultsTableProps) {
+function decisionValue(ex: SimExecution, decisionName: string): string {
+  const d = ex.decisionResults.find((r) => r.decisionName === decisionName);
+  return d ? String(d.result ?? "—") : "—";
+}
+
+/** .sim-table — per-item results table (ítem / estado / decisión(es) / outcomes / latencia). */
+export function SimResultsTable({ executions, decisionLabel, pinnedDecisions = [], onCycleDecision, openExecId, onRowClick }: SimResultsTableProps) {
+  const hasPinned = pinnedDecisions.length > 0;
+  const decisionCols = hasPinned ? pinnedDecisions : [decisionLabel || "Decisión"];
+  const colSpan = 3 + decisionCols.length;
+
   return (
     <div className="sim-table-wrap">
       <div className="sim-table-inner">
@@ -20,22 +33,29 @@ export function SimResultsTable({ executions, decisionLabel, openExecId, onRowCl
             <tr>
               <th>Ítem</th>
               <th>Estado</th>
-              <th>{decisionLabel || "Decisión"}</th>
+              {decisionCols.map((col) =>
+                !hasPinned && onCycleDecision ? (
+                  <th key={col} className="sim-th-swap" onClick={onCycleDecision} title="Clic para rotar la decisión mostrada">
+                    {col} <span className="sim-th-swap-caret">▾</span>
+                  </th>
+                ) : (
+                  <th key={col}>{col}</th>
+                )
+              )}
               <th>Outcomes</th>
-              <th>Latencia</th>
+              <th style={{ textAlign: "right" }}>Latencia</th>
             </tr>
           </thead>
           <tbody>
             {executions.length === 0 && (
               <tr>
-                <td colSpan={5} style={{ textAlign: "center", color: "var(--ink-4)", padding: 20, fontFamily: "var(--font-mono)", fontSize: 12 }}>
+                <td colSpan={colSpan} style={{ textAlign: "center", color: "var(--ink-4)", padding: 20, fontFamily: "var(--font-mono)", fontSize: 12 }}>
                   Sin ítems.
                 </td>
               </tr>
             )}
             {executions.map((ex, idx) => {
               const outcome = simOutcomeLabel(ex);
-              const primaryDecision = ex.decisionResults[0];
               const dotTone = ex.success ? "ok" : "err";
               return (
                 <tr key={ex.id} className={openExecId === ex.id ? "open" : ""} onClick={() => onRowClick(ex)}>
@@ -46,9 +66,15 @@ export function SimResultsTable({ executions, decisionLabel, openExecId, onRowCl
                       {ex.success ? "Exitosa" : "Fallida"}
                     </span>
                   </td>
-                  <td className="sim-td-decision">{primaryDecision ? String(primaryDecision.result ?? "—") : "—"}</td>
+                  {decisionCols.map((col, i) => (
+                    <td key={col} className="sim-td-decision" style={i === 0 ? { fontWeight: 600 } : undefined}>
+                      {decisionValue(ex, col)}
+                    </td>
+                  ))}
                   <td className={`sim-td-outcomes ${outcome.tone === "ok" ? "all-ok" : "has-fail"}`}>{outcome.label}</td>
-                  <td className="sim-td-latency">{simLatencyLabel(simExecLatency(ex))}</td>
+                  <td className="sim-td-latency" style={{ textAlign: "right" }}>
+                    {simLatencyLabel(simExecLatency(ex))}
+                  </td>
                 </tr>
               );
             })}

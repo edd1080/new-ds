@@ -1,25 +1,33 @@
 import { useState } from "react";
 import { Button } from "../ui/Button";
 import { Icon } from "../../icons/Icon";
-import type { SimExecution } from "./types";
+import { SIM_LAYER_LABEL } from "./utils";
+import type { ModelResult, SimExecution } from "./types";
 
 export interface SimBottomPanelProps {
   execution: SimExecution;
+  /** Model/layer currently selected in SimLayerTabs — null means the aggregated ("All / Combined") view. */
+  activeModel?: ModelResult | null;
 }
 
 /** .sim-bottom-panel — drawer footer w/ Entradas / Resultados de decisión / Mensajes columns + raw JSON toggle. */
-export function SimBottomPanel({ execution }: SimBottomPanelProps) {
+export function SimBottomPanel({ execution, activeModel = null }: SimBottomPanelProps) {
   const [minimized, setMinimized] = useState(false);
   const [rawOpen, setRawOpen] = useState(false);
 
-  const inputs = Object.entries(execution.request || {});
-  const decisions = execution.decisionResults || [];
-  const messages = decisions.flatMap((d) => d.messages.map((m) => ({ ...m, decisionName: d.decisionName })));
+  const inputs = Object.entries(activeModel ? activeModel.contextInputs : execution.request || {});
+  const decisions = activeModel ? activeModel.decisionResults : execution.decisionResults || [];
+  const messages = activeModel
+    ? activeModel.messages.map((m) => ({ ...m, decisionName: activeModel.modelName }))
+    : decisions.flatMap((d) => d.messages.map((m) => ({ ...m, decisionName: d.decisionName })));
+
+  const panelLabel = activeModel ? `DETALLES DE CAPA — ${activeModel.modelName} · ${SIM_LAYER_LABEL[activeModel.modelLayer]}` : "DETALLES DE EJECUCIÓN";
+  const hasLayerOutputs = !activeModel && (execution.accumulatedDomainResults || execution.accumulatedRuleResults);
 
   return (
     <div className="sim-bottom-panel">
       <div className="sim-bottom-bar">
-        <span className="lbl">DETALLES DE EJECUCIÓN</span>
+        <span className="lbl">{panelLabel}</span>
         <Button variant="ghost" size="sm" onClick={() => setMinimized((m) => !m)}>
           {minimized ? <Icon.chevron style={{ transform: "rotate(-90deg)" }} /> : <Icon.chevronDown />}
           {minimized ? "Expandir" : "Minimizar"}
@@ -95,6 +103,39 @@ export function SimBottomPanel({ execution }: SimBottomPanelProps) {
               )}
             </div>
           </div>
+
+          {/* Layer outputs (aggregated view only, multi-model executions) */}
+          {hasLayerOutputs && (
+            <div className="sim-layer-outputs">
+              <div className="sim-bottom-col-head" style={{ marginBottom: 6 }}>
+                Resultados acumulados por capa
+              </div>
+              <div className="sim-layer-outputs-grid">
+                {execution.accumulatedDomainResults && (
+                  <div className="sim-layer-output-block">
+                    <div className="sim-layer-output-label">Dominio</div>
+                    {Object.entries(execution.accumulatedDomainResults).map(([k, v]) => (
+                      <div key={k} className="sim-layer-output-row">
+                        <span className="k">{k}</span>
+                        <span className="v">{String(v)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {execution.accumulatedRuleResults && (
+                  <div className="sim-layer-output-block">
+                    <div className="sim-layer-output-label">Reglas</div>
+                    {Object.entries(execution.accumulatedRuleResults).map(([k, v]) => (
+                      <div key={k} className="sim-layer-output-row">
+                        <span className="k">{k}</span>
+                        <span className="v">{String(v)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Raw JSON */}
           <button className="sim-raw-toggle" onClick={() => setRawOpen((o) => !o)}>

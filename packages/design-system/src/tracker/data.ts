@@ -43,7 +43,7 @@ export const TRACKER_COMPONENTS: TrackerComponent[] = [
 
   // ─── BOTONES ───
   { category: "Botones", name: "Button Default", css: ".btn", status: "ds", source: "ui", desc: "components/ui/Button.tsx. Borde line-2, bg surface-1. 40px height." },
-  { category: "Botones", name: "Button Primary", css: ".btn.primary", status: "ds", source: "ui", desc: "components/ui/Button.tsx variant=\"primary\". Bg accent, color #00282e con cyan." },
+  { category: "Botones", name: "Button Primary", css: ".btn.primary", status: "ds", source: "ui", desc: "components/ui/Button.tsx variant=\"primary\". Usa --action-primary-* para no alterar el acento general." },
   { category: "Botones", name: "Button Ghost", css: ".btn.ghost", status: "ds", source: "ui", desc: "components/ui/Button.tsx variant=\"ghost\"." },
   { category: "Botones", name: "Button Small", css: ".btn.sm", status: "ds", source: "ui", desc: "components/ui/Button.tsx size=\"sm\". 32px height." },
   { category: "Botones", name: "Button Large", css: ".btn.lg", status: "ds", source: "ui", desc: "components/ui/Button.tsx size=\"lg\". 50px height." },
@@ -56,8 +56,8 @@ export const TRACKER_COMPONENTS: TrackerComponent[] = [
   { category: "Botones", name: "Auth Btn Ghost", css: ".btn-ghost-back", status: "ds", source: "auth", desc: "components/auth/AuthButtons.tsx BtnGhostBack. Con ícono flecha." },
 
   // ─── BADGES Y CHIPS ───
-  { category: "Badges y Chips", name: "Chip", css: ".chip", status: "ds", source: "ui", desc: "components/ui/Chip.tsx. Variantes: ok, warn, err, info, brand." },
-  { category: "Badges y Chips", name: "Tag", css: ".tag", status: "ds", source: "ui", desc: "components/primitives/Tag.tsx." },
+  { category: "Badges y Chips", name: "Chip", css: ".chip / .chip.sm", status: "ds", source: "ui", desc: "components/ui/Chip.tsx. Variantes: ok, warn, err, info, brand; size=\"sm\" para etiquetas compactas." },
+  { category: "Badges y Chips", name: "Tag", css: ".tag / .tag.sm", status: "ds", source: "ui", desc: "components/primitives/Tag.tsx. size=\"sm\" para labels técnicos compactos." },
   { category: "Badges y Chips", name: "Dot indicator", css: ".dot", status: "ds", source: "ui", desc: "components/primitives/Dot.tsx." },
   { category: "Badges y Chips", name: "Status Pill", css: ".status-pill", status: "ds", source: "bowpi", desc: "components/ui/StatusPill.tsx. published/draft/analysis." },
   { category: "Badges y Chips", name: "Type Badge", css: ".type-badge.STR/.INT etc", status: "ds", source: "bowpi", desc: "components/ui/TypeBadge.tsx. Colores fijos por tipo (excepción documentada). variant=\"mapper\" para labels del Mapper Editor." },
@@ -110,7 +110,7 @@ export const TRACKER_COMPONENTS: TrackerComponent[] = [
   { category: "Data Display", name: "JSON Tree Node", css: ".json-node / .json-leaf", status: "ds", source: "bowpi", desc: "components/ui/JsonTree.tsx (Upload) + components/mapper/TreePanel.tsx (Mapper, con estado de mapeo derivado de las reglas)." },
   { category: "Data Display", name: "JSON Map Dot", css: ".json-map-dot", status: "ds", source: "bowpi", desc: "Inline dentro de JsonTree.tsx / TreePanel.tsx." },
   { category: "Data Display", name: "Agent Step Row", css: ".agent-step-row", status: "ds", source: "bowpi", desc: "Inline dentro de components/ui/AgentCard.tsx." },
-  { category: "Data Display", name: "Domain Badge", css: ".domain-badge", status: "ds", source: "bowpi", desc: "components/mapper/DomainBadge.tsx. PRD §19.3 — badge de dominio resuelto por el caller (data-source agnostic)." },
+  { category: "Data Display", name: "Domain Indicator", css: ".domain-badge", status: "ds", source: "bowpi", desc: "components/mapper/DomainBadge.tsx. Círculo lleno accesible resuelto por el helper oficial D0-D8." },
   { category: "Data Display", name: "Null Policy Badge", css: ".null-pol-badge", status: "ds", source: "bowpi", desc: "components/mapper/NullPolicyBadge.tsx. PRD §5.3." },
 
   // ─── TABLAS ───

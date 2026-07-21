@@ -26,6 +26,23 @@
   --accent-line: #a4ecf5;
   --accent-ink:  #097e92;
 
+  /* ---- Semantic action CTA tokens ---- */
+  --action-primary-bg:       #56edff;
+  --action-primary-bg-hover: #e7fcff;
+  --action-primary-border:   #56edff;
+  --action-primary-ink:      #00282e;
+
+  /* ---- Official domain palette: base colors with light tints/shades ---- */
+  --domain-d0-bg: var(--surface-3); --domain-d0-text: var(--ink-2); --domain-d0-border: var(--line-2); --domain-d0-dot: var(--ink-3);
+  --domain-d1-bg: #fff0f6; --domain-d1-text: #b52f69; --domain-d1-border: #ffafd0; --domain-d1-dot: #ff56a2;
+  --domain-d2-bg: #fffbe0; --domain-d2-text: #8b7910; --domain-d2-border: #f4dc58; --domain-d2-dot: #ffeb56;
+  --domain-d3-bg: #eaf2ff; --domain-d3-text: #2c60b3; --domain-d3-border: #a8c8ff; --domain-d3-dot: #5697ff;
+  --domain-d4-bg: #ffeded; --domain-d4-text: #a51f28; --domain-d4-border: #f08c8c; --domain-d4-dot: #d93333;
+  --domain-d5-bg: #e9ffed; --domain-d5-text: #178638; --domain-d5-border: #8deba0; --domain-d5-dot: #33d953;
+  --domain-d6-bg: #fbf5df; --domain-d6-text: #8a6e14; --domain-d6-border: #e4cc83; --domain-d6-dot: #d0af4a;
+  --domain-d7-bg: #f0f0f0; --domain-d7-text: #505050; --domain-d7-border: #bcbcbc; --domain-d7-dot: #7f7f7f;
+  --domain-d8-bg: #f3eaff; --domain-d8-text: #6631a6; --domain-d8-border: #c79def; --domain-d8-dot: #9a52ed;
+
   --ok:   #27D778;  --ok-soft:   #D1FFE6;  --ok-line:   #7AD1A2;
   --warn: #D99733;  --warn-soft: #FFE8C7;  --warn-line: #F8C579;
   --err:  #D0514A;  --err-soft:  #FFE7E7;  --err-line:  #FFC0C0;
@@ -59,6 +76,7 @@
   --grid-size: 72px;
   --pad-surface: calc(40px * var(--space));
   --gap-card: calc(20px * var(--space));
+  --space-header-y: 16px;
   --motion-mult: 1;
 }
 
@@ -85,6 +103,22 @@
   --accent-soft: #06343b;
   --accent-line: #0e5965;
   --accent-ink:  #5cf6ff;
+
+  /* CTA tokens remain semantically independent from the general accent. */
+  --action-primary-bg:       #56edff;
+  --action-primary-bg-hover: #e7fcff;
+  --action-primary-border:   #56edff;
+  --action-primary-ink:      #00282e;
+
+  --domain-d0-bg: var(--surface-3); --domain-d0-text: var(--ink-2); --domain-d0-border: var(--line-2); --domain-d0-dot: var(--ink-3);
+  --domain-d1-bg: #4a1830; --domain-d1-text: #ffafd0; --domain-d1-border: #8c2f5c; --domain-d1-dot: #ff75b4;
+  --domain-d2-bg: #4a4217; --domain-d2-text: #fff4a3; --domain-d2-border: #7f731e; --domain-d2-dot: #ffeb56;
+  --domain-d3-bg: #172f5a; --domain-d3-text: #a8c8ff; --domain-d3-border: #2f5ca4; --domain-d3-dot: #6ea7ff;
+  --domain-d4-bg: #4d181b; --domain-d4-text: #ffb0b0; --domain-d4-border: #8c3035; --domain-d4-dot: #f05a5a;
+  --domain-d5-bg: #163b1f; --domain-d5-text: #9af0aa; --domain-d5-border: #2d7c42; --domain-d5-dot: #4bea68;
+  --domain-d6-bg: #403719; --domain-d6-text: #f2dc91; --domain-d6-border: #76632a; --domain-d6-dot: #d0af4a;
+  --domain-d7-bg: #292929; --domain-d7-text: #d0d0d0; --domain-d7-border: #4b4b4b; --domain-d7-dot: #9a9a9a;
+  --domain-d8-bg: #321958; --domain-d8-text: #d2b0ff; --domain-d8-border: #6335a0; --domain-d8-dot: #b77cff;
 
   --ok:   #27D778;  --ok-soft:   #16241c;  --ok-line:   #2d4a39;
   --warn: #D99733;  --warn-soft: #271f10;  --warn-line: #4a3d1f;
@@ -224,9 +258,9 @@ a { color: inherit; text-decoration: none; cursor: pointer; }
 .btn:hover { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
 .btn:active { transform: translateY(1px); }
 .btn svg { width: 15px; height: 15px; }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #00282e; }
-[data-theme="dark"] .btn.primary { color: #00282e; }
-.btn.primary:hover { background: var(--accent-2); border-color: var(--accent-2); box-shadow: var(--shadow-md); }
+.btn.primary { background: var(--action-primary-bg); border-color: var(--action-primary-border); color: var(--action-primary-ink); }
+[data-theme="dark"] .btn.primary { color: var(--action-primary-ink); }
+.btn.primary:hover { background: var(--action-primary-bg-hover); border-color: var(--action-primary-border); box-shadow: var(--shadow-md); }
 .btn.ghost { border-color: transparent; background: transparent; color: var(--ink-2); }
 .btn.ghost:hover { background: var(--surface-3); color: var(--ink-1); box-shadow: none; }
 .btn.sm { height: 32px; padding: 0 13px; font-size: 13px; border-radius: var(--r-xs); }
@@ -265,6 +299,11 @@ a { color: inherit; text-decoration: none; cursor: pointer; }
   background: var(--surface-1);
   white-space: nowrap;
   line-height: 1.4;
+}
+.tag.sm, .chip.sm {
+  font-size: 10px;
+  padding: 2px 6px;
+  gap: 4px;
 }
 .tag.ok,   .chip.ok   { color: var(--ok);   border-color: var(--ok-line);   background: var(--ok-soft); }
 .tag.warn, .chip.warn { color: var(--warn); border-color: var(--warn-line); background: var(--warn-soft); }
@@ -358,5 +397,5 @@ a { color: inherit; text-decoration: none; cursor: pointer; }
   --accent-ink: #5cf6ff;
 }
 /* cyan is light → solid accent fills need dark text in BOTH themes */
-[data-accent="cyan"] .btn.primary,
+[data-accent="cyan"] .btn.primary { color: var(--action-primary-ink); }
 [data-accent="cyan"] .topbar-org .org-mark { color: #00282e; }

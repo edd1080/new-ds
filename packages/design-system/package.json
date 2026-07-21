@@ -1,24 +1,45 @@
 {
   "name": "@bowpi/design-system",
-  "private": true,
-  "version": "0.1.0",
-  "description": "Bowpi Enterprise design system — React component library, tokens, and component tracker data.",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "version": "1.2.2",
+  "description": "Bowpi Enterprise design system — React component library, tokens, and icons.",
+  "type": "module",
+  "main": "./lib/design-system.cjs.js",
+  "module": "./lib/design-system.es.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./styles/*": "./src/styles/*"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/design-system.es.js",
+      "require": "./lib/design-system.cjs.js"
+    },
+    "./styles": "./lib/design-system.css"
   },
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "build": "vite build --mode lib",
+    "build:lib": "vite build --mode lib",
+    "dev": "vite build --watch --mode lib",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build:lib"
   },
   "peerDependencies": {
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.4"
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://repository-devops.bowpi.com/repository/bowpi/"
   }
 }

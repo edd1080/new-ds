@@ -1,0 +1,17 @@
+/*
+ * Unified entry stylesheet for the published @bowpi/design-system package.
+ * Bundled into a single lib/design-system.css by the lib-mode Vite build
+ * (exports["./styles"]). Combines the (app) route group globals and the
+ * (auth) route group globals — base.css is shared and imported once.
+ */
+@import "./base.css";
+@import "./shell.css";
+@import "./surfaces.css";
+@import "./surfaces2.css";
+@import "./surfaces3.css";
+@import "./surfaces4.css";
+@import "./surf-domains.css";
+@import "./surf-simulations.css";
+@import "./surf-bkm.css";
+@import "./components.css";
+@import "./auth.css";

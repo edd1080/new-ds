@@ -1,5 +1,11 @@
+// ─── Styles (bundled into lib/design-system.css for the published package) ──
+import "./styles/globals.css";
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 export * from "./types/matilda";
+
+// ─── Domain palette ─────────────────────────────────────────────────────────
+export * from "./domainColors";
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 export { Icon } from "./icons/Icon";
@@ -77,6 +83,7 @@ export * from "./components/auth/Divider";
 
 // ─── Domains ────────────────────────────────────────────────────────────────
 export * from "./components/domains/DomainPanel";
+export * from "./components/domains/DomainLegend";
 export * from "./components/domains/SlidePanel";
 export * from "./components/domains/ConfirmDialog";
 
@@ -105,10 +112,13 @@ export * from "./components/simulations/SimRunRail";
 export * from "./components/simulations/SimMetricCard";
 export * from "./components/simulations/SimDistributionBar";
 export * from "./components/simulations/SimResultsTable";
+export * from "./components/simulations/SimColumnPinPopover";
 export * from "./components/simulations/SimDmnCanvas";
 export * from "./components/simulations/SimNodeDetailPanel";
 export * from "./components/simulations/SimBottomPanel";
 export * from "./components/simulations/SimDrawer";
+export * from "./components/simulations/SimLayerTabs";
+export * from "./components/simulations/SimLayersCard";
 export * from "./components/simulations/SimStatusBadge";
 export * from "./components/simulations/SimUploadZone";
 export * from "./components/simulations/SimFileRow";
